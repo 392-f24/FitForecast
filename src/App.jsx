@@ -1,17 +1,23 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import Main from './pages/Main';
+import Closet from './pages/Closet';
+import Header from './components/Header';
 
 function App() {
-
   return (
-    <>
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
-    </>
-  )
+    <Router>
+      <div className="flex flex-col h-screen">
+        <Header />
+        <main className="flex-grow">
+          <Routes>
+            <Route path="/" element={<Main />} />
+            <Route path="/closet" element={<Closet />} />
+          </Routes>
+        </main>
+      </div>
+    </Router>
+  );
 }
 
-export default App
+export default App;
