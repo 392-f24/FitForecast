@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import AddClothesButton from "../components/AddClothesButton";
+import EditForm from "../components/EditForm";
 import ShirtSVG from '../assets/test.svg';
 import PantSVG from '../assets/jeans.svg';
 import BagSVG from '../assets/bag.svg';
@@ -9,7 +11,10 @@ import PantsIcon from '../assets/pants.svg';
 import ShoesIcon from '../assets/shoes.svg';
 import JacketsIcon from '../assets/jackets.svg';
 import AccessoriesIcon from '../assets/accessories.svg';
-function Closet() {
+
+function Closet() {     
+  const [showModal, setShowModal] = useState(false);
+            
   const [selectedCategory, setSelectedCategory] = useState('All');
 
   const categories = ["All", "Shirts", "Pants", "Shoes", "Jackets", "Accessories"];
@@ -38,6 +43,8 @@ function Closet() {
 
   return (
     <div className="p-4">
+      <EditForm showModal={showModal} setShowModal={setShowModal}/>
+    
       {/* Category icons */}
       <div className="flex space-x-4 overflow-x-auto mb-4">
         {categories.map((category, index) => (
@@ -69,7 +76,10 @@ function Closet() {
           ))}
         </div>
       </div>
+      
+      <AddClothesButton onClick={() => setShowModal(true)}/>
     </div>
   );
 }
+
 export default Closet;
