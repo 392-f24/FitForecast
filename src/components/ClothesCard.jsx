@@ -1,10 +1,10 @@
-function ClothesCard({ clothes }) {
+const ClothesCard = ({ clothes }) => {
   return (
     <div className="p-2 bg-gray-100 flex justify-center items-center rounded-lg">
       <img
         src={clothes.image}
         alt={clothes.name}
-        className="object-cover h-full w-full"
+        className="object-contain h-56 w-56"
       />
     </div>
   );
