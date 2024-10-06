@@ -9,7 +9,7 @@ function App() {
     <Router>
       <div className="flex flex-col h-screen">
         <Header />
-        <main className="flex-grow">
+        <main className="flex-grow mt-16">
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/closet" element={<Closet />} />

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <header className="top-0 left-0 w-full p-4 z-1 border-b-2 shadow-sm">
+    <header className="fixed top-0 left-0 w-full p-4 z-10 bg-white shadow-md">
       <div className="flex">
         <nav className="container mx-auto">
           <ul className="flex justify-start gap-4">
