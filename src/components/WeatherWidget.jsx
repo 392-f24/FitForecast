@@ -13,7 +13,7 @@ const WeatherWidget = () => {
   };
 
   return (
-    <div className="w-[90%] sm:w-[90%] md:max-w-sm lg:max-w-md my-2 mx-auto bg-gradient-to-b from-cyan-500 via-blue-400 to-cyan-500 rounded-lg shadow-lg text-white">
+    <div className="w-full sm:w-[90%] md:max-w-sm lg:max-w-md my-2 mx-auto bg-gradient-to-b from-cyan-500 via-blue-400 to-cyan-500 rounded-lg shadow-lg text-white">
       <div className="flex-col p-3">
         <div className="flex justify-between mb-3">
           <div className="flex items-center">

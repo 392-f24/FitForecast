@@ -29,7 +29,7 @@ function SuggestedOutfit() {
   const secondHalf = outfit.slice(Math.ceil(outfit.length / 2));
 
   return (
-    <div className="flex flex-col p-4 gap-4">
+    <div className="flex flex-col gap-4">
       <p className="font-semibold text-left">Today's Outfit</p>
 
       <div className="flex gap-4">
@@ -45,8 +45,8 @@ function SuggestedOutfit() {
         </div>
       </div>
 
-      <div>
-        <button className="inline-flex px-4 py-3 justify-center items-center gap-3 rounded-xl bg-neutral-800 w-fit">
+      <div className="pt-4">
+        <button className="inline-flex px-4 py-3 justify-center items-center gap-3 rounded-xl bg-neutral-800 w-fit text-white">
           <span class="material-symbols-rounded">autorenew</span>
           <p className="text-m font-semibold text-left">Suggest new outfit</p>
         </button>
