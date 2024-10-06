@@ -10,9 +10,8 @@ import Shoes from "../assets/shoes.png";
 import On from "../assets/on.png";
 import LeatherJacket from "../assets/leatherjacket.png";
 import WhiteShirt from "../assets/whileshirt.png";
-import WhiteSweater from "../assets/whitesweater.jpg";
-import Sunglasses from "../assets/sunglasses.png";
-import Tote from "../assets/tote.png";
+import WhiteSweater from "../assets/whitesweater.png";
+import BlackShirt from "../assets/blackShirt.png";
 
 // Categorized clothing items
 const pants = [
@@ -27,15 +26,14 @@ const shoes = [
   { name: "On Shoes", image: On },
 ];
 
-const tops = [
-  { name: "Leather Jacket", image: LeatherJacket },
+const shirts = [
   { name: "White Shirt", image: WhiteShirt },
-  { name: "White Sweater", image: WhiteSweater },
+  { name:"Black Shirt", image: BlackShirt},
 ];
 
-const accessories = [
-  { name: "Beige Totebag", image: Tote },
-  { name: "Sunglasses", image: Sunglasses },
+const jackets = [
+  { name: "Leather Jacket", image: LeatherJacket },
+  { name: "White Sweater", image: WhiteSweater },
 ];
 
 // Helper function to select a random item from each category
@@ -48,8 +46,8 @@ const SuggestedOutfit = () => {
   const generateOutfit = () => ({
     pants: getRandomItem(pants),
     shoes: getRandomItem(shoes),
-    top: getRandomItem(tops),
-    accessory: getRandomItem(accessories),
+    top: getRandomItem(shirts),
+    accessory: getRandomItem(jackets),
   });
 
   const [outfit, setOutfit] = useState(generateOutfit());
@@ -62,13 +60,17 @@ const SuggestedOutfit = () => {
     <div className="flex flex-col gap-4">
       <p className="font-semibold text-left">Today's Outfit</p>
 
-      <div className="flex gap-4">
-        <div className="flex flex-col gap-4">
+      <div className="grid grid-cols-2 gap-4">
+        <div className="w-full aspect-square">
           <ClothesCard clothes={outfit.pants} />
+        </div>
+        <div className="w-full aspect-square">
           <ClothesCard clothes={outfit.top} />
         </div>
-        <div className="flex flex-col gap-4">
+        <div className="w-full aspect-square">
           <ClothesCard clothes={outfit.shoes} />
+        </div>
+        <div className="w-full aspect-square">
           <ClothesCard clothes={outfit.accessory} />
         </div>
       </div>

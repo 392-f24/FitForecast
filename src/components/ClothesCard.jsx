@@ -4,7 +4,7 @@ const ClothesCard = ({ clothes }) => {
       <img
         src={clothes.image}
         alt={clothes.name}
-        className="object-cover h-full w-full"
+        className="object-contain h-56 w-56"
       />
     </div>
   );

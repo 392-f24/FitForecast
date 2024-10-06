@@ -8,8 +8,7 @@ import ImageUploader from "./ImageUploader";
 
 const categories = [
   "shirts",
-  "coat",
-  "shorts",
+  "jackets",
   "pants",
   "shoes",
   "accessories",
