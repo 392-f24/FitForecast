@@ -1,4 +1,4 @@
-function ClothesCard({ clothes }) {
+const ClothesCard = ({ clothes }) => {
   return (
     <div className="p-2 bg-gray-100 flex justify-center items-center rounded-lg">
       <img

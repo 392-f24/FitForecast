@@ -24,7 +24,7 @@ const outfit = [
   },
 ];
 
-function SuggestedOutfit() {
+const SuggestedOutfit = () => {
   const firstHalf = outfit.slice(0, Math.ceil(outfit.length / 2));
   const secondHalf = outfit.slice(Math.ceil(outfit.length / 2));
 
