@@ -58,7 +58,7 @@ function Closet() {
       </div>
 
       {/* Scrollable container for clothing grid */}
-      <div className="h-screen overflow-y-auto">
+      <div className="h-[calc(100vh-150px)] overflow-y-auto">
         {/* Clothing grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
           {filteredClothes.map((item, index) => (
