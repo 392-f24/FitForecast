@@ -47,7 +47,7 @@ function SuggestedOutfit() {
 
       <div className="pt-4">
         <button className="inline-flex px-4 py-3 justify-center items-center gap-3 rounded-xl bg-neutral-800 w-fit text-white">
-          <span class="material-symbols-rounded">autorenew</span>
+          <span className="material-symbols-rounded">autorenew</span>
           <p className="text-m font-semibold text-left">Suggest new outfit</p>
         </button>
       </div>
