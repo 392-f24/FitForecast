@@ -1,8 +1,8 @@
-import './App.css'
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import Main from './pages/Main';
-import Closet from './pages/Closet';
-import Header from './components/Header';
+import "./App.css";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Main from "./pages/Main";
+import Closet from "./pages/Closet";
+import Header from "./components/Header";
 
 function App() {
   return (
