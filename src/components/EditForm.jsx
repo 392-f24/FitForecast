@@ -4,6 +4,7 @@
 // form layout reference https://tailwindui.com/components/application-ui/forms/form-layouts
 
 import CustomDropdown from "./CustomDropdown";
+import ImageUploader from "./ImageUploader";
 
 const categories = [
   "shirts",
@@ -21,7 +22,7 @@ const EditForm = ({ showModal, setShowModal }) => {
       {showModal ? (
         <>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-scroll fixed inset-0 z-50 outline-none focus:outline-none">
-            <div className="relative w-auto my-6 mx-auto max-w-3xl">
+            <div className="relative my-6 mx-auto w-3/4 lg:w-96">
               {/*content*/}
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
@@ -38,29 +39,9 @@ const EditForm = ({ showModal, setShowModal }) => {
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
-                  <div className="col-span-full">
-                    <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
-                      <div className="text-center">
-                        {/* <PhotoIcon aria-hidden="true" className="mx-auto h-12 w-12 text-gray-300" /> */}
-                        <div className="mt-4 flex text-sm leading-6 text-gray-600">
-                          <label
-                            htmlFor="file-upload"
-                            className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
-                          >
-                            <span>Upload a file</span>
-                            {/* <input
-                              id="file-upload"
-                              name="file-upload"
-                              type="file"
-                              className="sr-only"
-                            /> */}
-                          </label>
-                          <p className="pl-1">or drag and drop</p>
-                        </div>
-                        <p className="text-xs leading-5 text-gray-600">
-                          PNG, JPG, GIF up to 10MB
-                        </p>
-                      </div>
+                  <div className="sm:col-span-4">
+                    <div className="flex justify-center rounded-lg border border-dashed border-gray-900/25 px-2 py-2">
+                      <ImageUploader />
                     </div>
                   </div>
 
@@ -78,7 +59,6 @@ const EditForm = ({ showModal, setShowModal }) => {
                           name="nickname"
                           type="text"
                           placeholder="What would you call this?"
-                          autoComplete="nickname"
                           className="block flex-1 border-0 bg-transparent py-2 pl-3 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 focus:outline-none "
                         />
                       </div>
@@ -130,14 +110,14 @@ const EditForm = ({ showModal, setShowModal }) => {
 
                   <div className="sm:col-span-4">
                     <label
-                      htmlFor="preference "
+                      htmlFor="preference"
                       className="block text-sm font-medium leading-6 text-gray-900 text-left mt-3"
                     >
                       preference
                     </label>
                     <div className="mt-1 relative">
                       <input
-                        id="steps-range"
+                        id="preference"
                         type="range"
                         min="0"
                         max="10"
