@@ -4,13 +4,14 @@ import { useState } from 'react'
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react'
 
-const CustomDropdown = ({data}) => {
+const CustomDropdown = ({fieldId, FieldName, options, defaultValue}) => {
 
-    const [selected, setSelected] = useState(data[0])
+    const [selected, setSelected] = useState(defaultValue)
 
   return (
-      <Listbox value={selected} onChange={setSelected}>
-        <ListboxButton
+      <Listbox name={FieldName} value={selected} onChange={setSelected}>
+        <ListboxButton 
+          id={fieldId}
           className={clsx(
             'relative block w-full rounded-lg bg-white/5 py-1.5 pr-8 pl-3 text-left text-sm/6 border-gray-300',
             'focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25'
@@ -30,7 +31,7 @@ const CustomDropdown = ({data}) => {
             'transition duration-100 ease-in'
           )}
         >
-          {data.map((item) => (
+          {options.map((item) => (
             <ListboxOption
               key={item}
               value={item}

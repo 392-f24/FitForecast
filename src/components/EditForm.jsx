@@ -16,12 +16,20 @@ const categories = [
 ];
 const thickness = ["thin", "medium", "thick"];
 
-const EditForm = ({ showModal, setShowModal }) => {
+const EditForm = ({ showModal, setShowModal, data}) => {
+  data = data || {image: "", name: "", category: categories[0], thickness: thickness[0], color: "#000000", preference: 5};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const data = new FormData(e.target)
+    const formObject = Object.fromEntries(data.entries())
+    console.log(formObject)
+    setShowModal(false);
+  }
   return (
     <>
       {showModal ? (
         <>
-          <div className="justify-center items-center flex overflow-x-hidden overflow-y-scroll fixed inset-0 z-50 outline-none focus:outline-none">
+          <form onSubmit={handleSubmit} className="justify-center items-center flex overflow-x-hidden overflow-y-scroll fixed inset-0 z-50 outline-none focus:outline-none">
             <div className="relative my-6 mx-auto w-3/4 lg:w-96">
               {/*content*/}
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
@@ -41,7 +49,7 @@ const EditForm = ({ showModal, setShowModal }) => {
                 <div className="relative p-6 flex-auto">
                   <div className="sm:col-span-4">
                     <div className="flex justify-center rounded-lg border border-dashed border-gray-900/25 px-2 py-2">
-                      <ImageUploader />
+                      <ImageUploader defaultImage={data.image}/>
                     </div>
                   </div>
 
@@ -73,7 +81,7 @@ const EditForm = ({ showModal, setShowModal }) => {
                       cateogry
                     </label>
                     <div className="mt-1">
-                      <CustomDropdown data={categories} />
+                      <CustomDropdown fieldId="cateogry" FieldName="cateogry" options={categories} defaultValue={data.category}/>
                     </div>
                   </div>
 
@@ -85,7 +93,7 @@ const EditForm = ({ showModal, setShowModal }) => {
                       thickness
                     </label>
                     <div className="mt-1">
-                      <CustomDropdown data={thickness} />
+                      <CustomDropdown fieldId="thickness" FieldName="thickness" options={thickness} defaultValue={data.thickness}/>
                     </div>
                   </div>
 
@@ -102,6 +110,7 @@ const EditForm = ({ showModal, setShowModal }) => {
                           id="color"
                           name="color"
                           type="color"
+                          defaultValue={data.color}
                           className="block flex-1 border-0 h-8 bg-transparent"
                         />
                       </div>
@@ -118,6 +127,8 @@ const EditForm = ({ showModal, setShowModal }) => {
                     <div className="mt-1 relative">
                       <input
                         id="preference"
+                        name="preference"
+                        defaultValue={data.preference}
                         type="range"
                         min="0"
                         max="10"
@@ -144,15 +155,14 @@ const EditForm = ({ showModal, setShowModal }) => {
                   </button>
                   <button
                     className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                    type="button"
-                    onClick={() => setShowModal(false)}
+                    type="submit"
                   >
                     Save
                   </button>
                 </div>
               </div>
             </div>
-          </div>
+          </form>
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
       ) : null}
