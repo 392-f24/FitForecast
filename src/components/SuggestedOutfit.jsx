@@ -1,20 +1,6 @@
 import React, { useState } from "react";
 import ClothesCard from "./ClothesCard";
-import { httpsCallable } from 'firebase/functions';
-import { functions } from "../utilities/firebase";
-
-export const getOutfitSuggestion = async () => {
-  const outfitSuggestion = httpsCallable(functions, 'on_request_example');
-  
-  try {
-    const result = await outfitSuggestion();
-    console.log(result.data);
-    return result.data;
-  } catch (error) {
-    console.error("Error calling the function:", error);
-  }
-};
-getOutfitSuggestion();
+import { functions, httpsCallable } from "../utilities/firebase"
 
 // Import all clothing items
 import Jeans from "../assets/jeans.png";
@@ -71,6 +57,20 @@ const SuggestedOutfit = () => {
     setOutfit(generateOutfit());
   };
 
+  const firebaseFunction = () => {
+    // Call Firebase function using httpsCallable
+    const onRequestExample = httpsCallable(functions, 'on_request_example');
+    
+    onRequestExample()
+      .then(result => {
+        console.log('Firebase function response:', result.data); // Access the response data
+        setOutfit(generateOutfit());  // Generate new outfit after successful function call
+      })
+      .catch(error => {
+        console.error('Error calling Firebase function:', error);
+      });
+  };
+
   return (
     <div className="flex flex-col gap-4">
       <p className="font-semibold text-left">Today's Outfit</p>
@@ -92,7 +92,7 @@ const SuggestedOutfit = () => {
 
       <div className="pt-4">
         <button
-          onClick={suggestNewOutfit}
+          onClick={firebaseFunction}
           className="inline-flex px-4 py-3 justify-center items-center gap-3 rounded-xl bg-neutral-800 w-fit text-white"
         >
           <span className="material-symbols-rounded">autorenew</span>

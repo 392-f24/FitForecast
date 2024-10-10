@@ -1,16 +1,27 @@
-# Welcome to Cloud Functions for Firebase for Python!
-# To get started, simply uncomment the below code or create your own.
-# Deploy with `firebase deploy`
+from firebase_functions import https_fn
+from firebase_admin import initialize_app
+from flask_cors import CORS
+from flask import Flask, jsonify, request
 
-# The Cloud Functions for Firebase SDK to create Cloud Functions and set up triggers.
-from firebase_functions import firestore_fn, https_fn
+app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}})  # Allow all origins
 
-# The Firebase Admin SDK to access Cloud Firestore.
-from firebase_admin import initialize_app, firestore
-import google.cloud.firestore
+# Initialize Firebase Admin SDK
+initialize_app()
 
-app = initialize_app()
-
+# Define the cloud function
 @https_fn.on_request()
 def on_request_example(req: https_fn.Request) -> https_fn.Response:
-    return https_fn.Response("Hello world!")
+    # Handle CORS preflight requests (OPTIONS)
+    if req.method == 'OPTIONS':
+        response = https_fn.Response(status=204)  # 204 No Content for OPTIONS preflight
+        response.headers['Access-Control-Allow-Origin'] = '*'
+        response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
+        response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+        return response
+
+    # Actual function logic
+    response_data = {"data": {"message": "Hello from Firebase function using httpsCallable!"}}
+    response = jsonify(response_data)
+    response.headers['Access-Control-Allow-Origin'] = '*'  # Allow all origins for actual requests
+    return response
