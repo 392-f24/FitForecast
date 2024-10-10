@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AddClothesButton from "../components/AddClothesButton";
 import EditForm from "../components/EditForm";
 import ShirtSVG from '../assets/test.svg';
@@ -11,6 +11,7 @@ import PantsIcon from '../assets/pants.svg';
 import ShoesIcon from '../assets/shoes.svg';
 import JacketsIcon from '../assets/jackets.svg';
 import AccessoriesIcon from '../assets/accessories.svg';
+import { readData } from '../utilities/database';
 
 function Closet() {     
   const [showModal, setShowModal] = useState(false);
@@ -36,6 +37,10 @@ function Closet() {
     { imageUrl: ShirtSVG, category: 'Jackets' },
     { imageUrl: BagSVG, category: 'Accessories' },
   ];
+
+  useEffect(() => {
+    readData();
+  }, []);
 
   const filteredClothes = selectedCategory === 'All' 
     ? clothes 

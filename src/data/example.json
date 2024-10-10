@@ -1,0 +1,96 @@
+{
+    "Users": [
+        {
+            "username": "admin",
+            "password": "admin",
+            "closet":[
+                {
+                    "id": "1",
+                    "imageURL": "www.google.com",
+                    "parentType": "top",
+                    "type": "t-shirt",
+                    "color": "#000000",
+                    "warmthLevel":3,
+                    "preference": 5
+                },
+                {
+                    "id": "2",
+                    "imageURL": "www.google.com",
+                    "parentType": "bottom",
+                    "type": "shorts",
+                    "color": "#FFFFFF",
+                    "warmthLevel":5,
+                    "preference": 10
+                }
+            ]
+
+        }
+    ],
+    "ParentTypes": [
+        {
+            "name": "top",
+            "types": [
+                {
+                    "name": "t-shirt"
+                },
+                {
+                    "name": "shirt"
+                },
+                {
+                    "name": "long sleeve"
+                },
+                {
+                    "name": "dress"
+                }
+            ]
+        },
+        {
+            "name": "bottom",
+            "types": [
+                {
+                    "name": "shorts"
+                },
+                {
+                    "name": "pants"
+                }
+            ]
+        },
+        {
+            "name": "footwear",
+            "types": [
+                {
+                    "name": "sandals"
+                },
+                {
+                    "name": "sneakers"
+                },
+                {
+                    "name": "boots"
+                },
+                {
+                    "name": "dress shoes"
+                }
+            ]
+        },
+        {
+            "name": "outerwear",
+            "types": [
+                {
+                    "name": "sweater"
+                },
+                {
+                    "name": "hoodie"
+                },
+                {
+                    "name": "jacket"
+                },
+                {
+                    "name": "rain jacket"
+                },
+                {
+                    "name": "coat"
+                }
+            ]
+        }
+    ]
+}
