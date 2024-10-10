@@ -1,5 +1,20 @@
 import React, { useState } from "react";
 import ClothesCard from "./ClothesCard";
+import { httpsCallable } from 'firebase/functions';
+import { functions } from "../utilities/firebase";
+
+export const getOutfitSuggestion = async () => {
+  const outfitSuggestion = httpsCallable(functions, 'on_request_example');
+  
+  try {
+    const result = await outfitSuggestion();
+    console.log(result.data);
+    return result.data;
+  } catch (error) {
+    console.error("Error calling the function:", error);
+  }
+};
+getOutfitSuggestion();
 
 // Import all clothing items
 import Jeans from "../assets/jeans.png";
