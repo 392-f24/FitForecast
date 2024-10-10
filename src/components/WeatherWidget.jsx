@@ -72,15 +72,24 @@ const WeatherWidget = () => {
         setWeatherData(currentWeather);
       } catch (err) {
         setError(err.message);
+
+        const dummyWeatherData = {
+          location: "Evanston",
+          current_temperature: 62,
+          high_temperature: 64,
+          low_temperature: 57,
+          weather_condition: "clouds",
+          chance_of_rain: 12,
+          weather_icon: weatherIconMapping["03d"],
+        };
+
+        console.log(dummyWeatherData);
+        setWeatherData(dummyWeatherData);
       }
     };
 
     fetchWeatherData();
   }, [isEvanston]);
-
-  if (error) {
-    return <p>Error: {error}</p>;
-  }
 
   if (!weatherData) {
     return <p>Loading weather data...</p>;
@@ -93,13 +102,19 @@ const WeatherWidget = () => {
   };
 
   return (
-    <div className="w-full sm:w-[90%] md:max-w-sm lg:max-w-md my-2 mx-auto bg-gradient-to-b from-[#429CB0] via-[#429CB0] to-[#80BCC9] rounded-lg shadow-lg text-white">
-      <div className="flex-col p-3">
-        <div className="flex justify-between mb-3">
-          <div className="flex items-center">
-            <IoLocationOutline className="mr-1 text-sm" />
-            <p className="text-xs sm:text-sm">{weatherData.location}</p>
-            {/* <button
+    <div className="flex flex-col w-full">
+      {error && (
+        <p className="text-neutral-400 text-xs text-left">
+          Error occured: displaying dummy weather data.
+        </p>
+      )}
+      <div className="w-full sm:w-[90%] md:max-w-sm lg:max-w-md my-2 mx-auto bg-gradient-to-b from-[#429CB0] via-[#429CB0] to-[#80BCC9] rounded-lg shadow-lg text-white">
+        <div className="flex-col p-3">
+          <div className="flex justify-between mb-3">
+            <div className="flex items-center">
+              <IoLocationOutline className="mr-1 text-sm" />
+              <p className="text-xs sm:text-sm">{weatherData.location}</p>
+              {/* <button
               onClick={toggleLocation}
               className="text-white bg-transparent p-1 rounded text-xs"
             >
@@ -107,30 +122,35 @@ const WeatherWidget = () => {
                 autorenew
               </span>
             </button> */}
-          </div>
+            </div>
 
-          <p className="text-xs sm:text-sm">{weatherData.weather_condition}</p>
-        </div>
-
-        <div className="flex justify-between items-center mb-3">
-          <p className="font-semibold text-3xl sm:text-4xl">
-            {weatherData.current_temperature}°F
-          </p>
-          <WeatherIcon className="text-4xl sm:text-6xl" />
-        </div>
-
-        <div className="flex justify-between items-center">
-          <div className="flex justify-start">
-            <p className="text-xs sm:text-sm mr-1">
-              {weatherData.high_temperature}°
-            </p>
-            <p className="text-slate-200 text-xs sm:text-sm">
-              {weatherData.low_temperature}°
+            <p className="text-xs sm:text-sm">
+              {weatherData.weather_condition}
             </p>
           </div>
-          <div className="flex items-center bg-white text-cyan-700 rounded-full shadow-sm py-1 px-2">
-            <TiWeatherDownpour className="mr-1 text-sm" />
-            <p className="text-xs sm:text-sm">{weatherData.chance_of_rain}%</p>
+
+          <div className="flex justify-between items-center mb-3">
+            <p className="font-semibold text-3xl sm:text-4xl">
+              {weatherData.current_temperature}°F
+            </p>
+            <WeatherIcon className="text-4xl sm:text-6xl" />
+          </div>
+
+          <div className="flex justify-between items-center">
+            <div className="flex justify-start">
+              <p className="text-xs sm:text-sm mr-1">
+                {weatherData.high_temperature}°
+              </p>
+              <p className="text-slate-200 text-xs sm:text-sm">
+                {weatherData.low_temperature}°
+              </p>
+            </div>
+            <div className="flex items-center bg-white text-cyan-700 rounded-full shadow-sm py-1 px-2">
+              <TiWeatherDownpour className="mr-1 text-sm" />
+              <p className="text-xs sm:text-sm">
+                {weatherData.chance_of_rain}%
+              </p>
+            </div>
           </div>
         </div>
       </div>
