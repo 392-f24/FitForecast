@@ -9,7 +9,7 @@ import YellowPants from "../assets/yellowPants.png";
 import Shoes from "../assets/shoes.png";
 import On from "../assets/on.png";
 import LeatherJacket from "../assets/leatherjacket.png";
-import WhiteShirt from "../assets/whileshirt.png";
+import WhiteShirt from "../assets/whiteshirt.png";
 import WhiteSweater from "../assets/whitesweater.png";
 import BlackShirt from "../assets/blackShirt.png";
 

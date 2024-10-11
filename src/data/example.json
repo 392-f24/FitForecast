@@ -1,35 +1,52 @@
 {
-    "Users": [
-        {
+    "Users": {
+        "admin": {
             "username": "admin",
             "password": "admin",
-            "closet":[
+            "closet": [
                 {
                     "id": "1",
-                    "imageURL": "www.google.com",
-                    "parentType": "top",
-                    "type": "t-shirt",
+                    "imageURL": "blackShirt.png",
+                    "parentCategory": "top",
+                    "category": "t-shirt",
                     "color": "#000000",
-                    "warmthLevel":3,
+                    "warmthLevel": 3,
                     "preference": 5
                 },
                 {
                     "id": "2",
-                    "imageURL": "www.google.com",
-                    "parentType": "bottom",
-                    "type": "shorts",
-                    "color": "#FFFFFF",
-                    "warmthLevel":5,
-                    "preference": 10
+                    "imageURL": "shoes.png",
+                    "parentCategory": "footwear",
+                    "category": "sneakers",
+                    "color": "#000000",
+                    "warmthLevel": 3,
+                    "preference": 5
+                },
+                {
+                    "id": "3",
+                    "imageURL": "whiteSweater.png",
+                    "parentCategory": "outerwear",
+                    "category": "sweater",
+                    "color": "#000000",
+                    "warmthLevel": 3,
+                    "preference": 5
+                },
+                {
+                    "id": "4",
+                    "imageURL": "yellowPants.png",
+                    "parentCategory": "bottom",
+                    "category": "pants",
+                    "color": "#000000",
+                    "warmthLevel": 3,
+                    "preference": 5
                 }
             ]
-
         }
-    ],
-    "ParentTypes": [
+    },
+    "parentCategory": [
         {
             "name": "top",
-            "types": [
+            "category": [
                 {
                     "name": "t-shirt"
                 },
@@ -46,18 +63,21 @@
         },
         {
             "name": "bottom",
-            "types": [
+            "category": [
                 {
                     "name": "shorts"
                 },
                 {
                     "name": "pants"
+                },
+                {
+                    "name": "skirt"
                 }
             ]
         },
         {
             "name": "footwear",
-            "types": [
+            "category": [
                 {
                     "name": "sandals"
                 },
@@ -74,7 +94,7 @@
         },
         {
             "name": "outerwear",
-            "types": [
+            "category": [
                 {
                     "name": "sweater"
                 },

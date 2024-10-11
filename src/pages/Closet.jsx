@@ -1,21 +1,20 @@
 import { useEffect, useState } from 'react';
 import AddClothesButton from "../components/AddClothesButton";
 import EditForm from "../components/EditForm";
-import ShirtSVG from '../assets/test.svg';
-import PantSVG from '../assets/jeans.svg';
-import BagSVG from '../assets/bag.svg';
-import ShoesSVG from '../assets/shoesTest.svg';
 import AllIcon from '../assets/all.svg';
 import ShirtsIcon from '../assets/shirts.svg';
 import PantsIcon from '../assets/pants.svg';
 import ShoesIcon from '../assets/shoes.svg';
 import JacketsIcon from '../assets/jackets.svg';
 import AccessoriesIcon from '../assets/accessories.svg';
-import { readData } from '../utilities/database';
+import { readClosetData } from '../utilities/database';
+import { readImage } from '../utilities/storage';
 
 function Closet() {     
   const [showModal, setShowModal] = useState(false);
             
+  const [clothes, setClothes] = useState([]);
+
   const [selectedCategory, setSelectedCategory] = useState('All');
 
   const categories = ["All", "Shirts", "Pants", "Shoes", "Jackets", "Accessories"];
@@ -29,17 +28,14 @@ function Closet() {
     Jackets: JacketsIcon,
     Accessories: AccessoriesIcon,
   };
-  const clothes = [
-    // Populate this array with actual clothing items with a category property
-    { imageUrl: ShirtSVG, category: 'Shirts' },
-    { imageUrl: PantSVG, category: 'Pants' },
-    { imageUrl: ShoesSVG, category: 'Shoes' },
-    { imageUrl: ShirtSVG, category: 'Jackets' },
-    { imageUrl: BagSVG, category: 'Accessories' },
-  ];
 
   useEffect(() => {
-    readData();
+    readClosetData().then((data) => {
+      if (data) {
+        setClothes(data);
+      }
+    })
+    readImage();
   }, []);
 
   const filteredClothes = selectedCategory === 'All' 
@@ -76,7 +72,7 @@ function Closet() {
           {filteredClothes.map((item, index) => (
             <div key={index} className="flex items-center justify-center bg-gray-100 p-4 rounded-md">
               {/* Use SVG or image for each clothing item */}
-              <img src={item.imageUrl} alt={`Clothing item ${index + 1}`} className="w-full h-auto" />
+              <img src={item.imageURL} alt={`Clothing item ${index + 1}`} className="w-full h-auto" />
             </div>
           ))}
         </div>

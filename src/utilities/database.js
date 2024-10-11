@@ -1,14 +1,30 @@
-import { getDatabase, ref, onValue, set, remove} from "firebase/database";
+import { getDatabase, ref, get,set, remove} from "firebase/database";
+import { generateURL } from "./storage";
 import {firebase} from "../utilities/firebase";
 
 const db = getDatabase(firebase);
 
-export const readData = (path='/') => {
-    const dbRef = ref(db, path);
-    onValue(dbRef, (snapshot) => {
-        const data = snapshot.val();
-        console.log(data);
-    });
+export const readClosetData = async(userName='admin') => {
+    const dataRef = ref(db, `Users/${userName}/closet`);
+    const snapshot = await get(dataRef);
+    const data = snapshot.val();
+    if (!data) {
+        console.log('No data found');
+        return [];
+    }
+
+    // Fetch image URLs for each clothing item
+    const updatedData = await Promise.all(
+        data.map(async (clothing) => {
+          try {
+            return { ...clothing, imageURL: await generateURL(clothing.imageURL) };
+          } catch (error) {
+            console.error("Error fetching image URL for clothing:", clothing.imageURL, error);
+            return clothing;  // Return the original clothing in case of error
+          }
+        }))
+    console.log(updatedData);
+    return updatedData;
 }
 
 export const writeData = (path, data) => {
