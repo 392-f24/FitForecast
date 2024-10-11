@@ -1,48 +1,88 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import AddClothesButton from "../components/AddClothesButton";
 import EditForm from "../components/EditForm";
-import AllIcon from "../assets/all.svg";
-import ShirtsIcon from "../assets/shirts.svg";
-import PantsIcon from "../assets/pants.svg";
-import ShoesIcon from "../assets/shoes.svg";
-import JacketsIcon from "../assets/jackets.svg";
-import AccessoriesIcon from "../assets/accessories.svg";
-import { getCategories, getClothesData } from "../utilities/database";
+
+// import clothes icons
+// import AllIcon from "../assets/all.svg";
+// import AccessoriesIcon from "../assets/icons/accessories.svg";
+import ClosetIcon from "../assets/icons/closet.svg";
+import HoodieIcon from "../assets/icons/hoodie.svg";
+import BootsIcon from "../assets/icons/boots.svg";
+import DressIcon from "../assets/icons/dress.svg";
+import DressShoesIcon from "../assets/icons/dressshoes.svg";
+import LongSleeveIcon from "../assets/icons/longsleeve.svg";
+import PantsIcon from "../assets/icons/pants.svg";
+import SandalsIcon from "../assets/icons/sandals.svg";
+import ShortsIcon from "../assets/icons/shorts.svg";
+import SneakersIcon from "../assets/icons/sneakers.svg";
+import TShirtIcon from "../assets/icons/t-shirt.svg";
+import ShirtIcon from "../assets/icons/shirt.svg";
+import SweaterIcon from "../assets/icons/sweater.svg";
+import JacketIcon from "../assets/icons/jacket.svg";
+import RainJacketIcon from "../assets/icons/rainjacket.svg";
+import CoatIcon from "../assets/icons/coat.svg";
+import SkirtIcon from "../assets/icons/skirt.svg";
+
+// Import clothes SVG
+import HoodieSVG from "../assets/test.svg";
+import PantSVG from "../assets/jeans.svg";
+import SneakersSVG from "../assets/shoesTest.svg";
 
 function Closet() {
   const [showModal, setShowModal] = useState(false);
-
-  const [clothes, setClothes] = useState([]);
-
   const [selectedCategory, setSelectedCategory] = useState("All");
 
+  //TODO: Fetch categories from database
   const categories = [
     "All",
-    "Shirts",
+    "TShirt",
+    "Shirt",
+    "LongSleeve",
+    "Dress",
+    "Shorts",
     "Pants",
-    "Shoes",
-    "Jackets",
-    "Accessories",
+    "Skirt",
+    "Sandals",
+    "Sneakers",
+    "Boots",
+    "DressShoes",
+    "Sweater",
+    "Hoodie",
+    "Jacket",
+    "RainJacket",
+    "Coat",
   ];
 
   // Map categories to their icons
   const categoryIcons = {
-    All: AllIcon,
-    Shirts: ShirtsIcon,
+    All: ClosetIcon, // AllIcon or ClosetIcon
+    TShirt: TShirtIcon,
+    Shirt: ShirtIcon,
+    LongSleeve: LongSleeveIcon,
+    Dress: DressIcon,
+    Shorts: ShortsIcon,
     Pants: PantsIcon,
-    Shoes: ShoesIcon,
-    Jackets: JacketsIcon,
-    Accessories: AccessoriesIcon,
+    Skirt: SkirtIcon,
+    Sandals: SandalsIcon,
+    Sneakers: SneakersIcon,
+    Boots: BootsIcon,
+    DressShoes: DressShoesIcon,
+    Sweater: SweaterIcon,
+    Hoodie: HoodieIcon,
+    Jacket: JacketIcon,
+    RainJacket: RainJacketIcon,
+    Coat: CoatIcon,
   };
 
-  useEffect(() => {
-    getClothesData().then((data) => {
-      if (data) {
-        setClothes(data);
-      }
-    });
-    getCategories();
-  }, []);
+  // TODO: Fetch all clothes data for this person
+  // Display clothes filted by the category
+
+  const clothes = [
+    // Populate this array with actual clothing items with a category property
+    { imageUrl: HoodieSVG, category: "Hoodie" },
+    { imageUrl: PantSVG, category: "Pants" },
+    { imageUrl: SneakersSVG, category: "Sneakers" },
+  ];
 
   const filteredClothes =
     selectedCategory === "All"
@@ -56,19 +96,22 @@ function Closet() {
       {/* Category icons */}
       <div className="flex space-x-4 overflow-x-auto mb-4">
         {categories.map((category, index) => (
-          <button
-            key={index}
-            onClick={() => setSelectedCategory(category)}
-            className={`w-16 h-16 flex-shrink-0 flex items-center justify-center bg-white-100 rounded-full p-2 hover:bg-gray-300 transition ${
-              selectedCategory === category ? "bg-blue-100 text-white" : ""
-            }`}
-          >
-            <img
-              src={categoryIcons[category]}
-              alt={category}
-              className="w-10 h-10 object-contain"
-            />
-          </button>
+          <div key={index}>
+            <button
+              // key={index}
+              onClick={() => setSelectedCategory(category)}
+              className={`w-16 h-16 flex-shrink-0 flex items-center justify-center bg-white-100 rounded-full p-2 hover:bg-gray-300 transition ${
+                selectedCategory === category ? "bg-blue-100 text-white" : ""
+              }`}
+            >
+              <img
+                src={categoryIcons[category]}
+                alt={category}
+                className="w-10 h-10 object-contain"
+              />
+            </button>
+            <p>{category}</p>
+          </div>
         ))}
       </div>
 
@@ -76,6 +119,7 @@ function Closet() {
       <div className="h-[calc(100vh-150px)] overflow-y-auto">
         {/* Clothing grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          {/* <p>... Need to fetch clothes data from database</p> */}
           {filteredClothes.map((item, index) => (
             <div
               key={index}
@@ -83,7 +127,7 @@ function Closet() {
             >
               {/* Use SVG or image for each clothing item */}
               <img
-                src={item.imageURL}
+                src={item.imageUrl}
                 alt={`Clothing item ${index + 1}`}
                 className="w-full h-auto"
               />
