@@ -21,6 +21,7 @@ import SweaterIcon from "../assets/icons/sweater.svg";
 import JacketIcon from "../assets/icons/jacket.svg";
 import RainJacketIcon from "../assets/icons/rainjacket.svg";
 import CoatIcon from "../assets/icons/coat.svg";
+import SkirtIcon from "../assets/icons/skirt.svg";
 
 // Import clothes SVG
 import HoodieSVG from "../assets/test.svg";
@@ -40,6 +41,7 @@ function Closet() {
     "Dress",
     "Shorts",
     "Pants",
+    "Skirt",
     "Sandals",
     "Sneakers",
     "Boots",
@@ -60,6 +62,7 @@ function Closet() {
     Dress: DressIcon,
     Shorts: ShortsIcon,
     Pants: PantsIcon,
+    Skirt: SkirtIcon,
     Sandals: SandalsIcon,
     Sneakers: SneakersIcon,
     Boots: BootsIcon,
