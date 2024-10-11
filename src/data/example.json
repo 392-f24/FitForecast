@@ -43,10 +43,10 @@
             ]
         }
     },
-    "parentCategory": [
+    "parentCategories": [
         {
             "name": "top",
-            "category": [
+            "categories": [
                 {
                     "name": "t-shirt"
                 },
@@ -63,7 +63,7 @@
         },
         {
             "name": "bottom",
-            "category": [
+            "categories": [
                 {
                     "name": "shorts"
                 },
@@ -77,7 +77,7 @@
         },
         {
             "name": "footwear",
-            "category": [
+            "categories": [
                 {
                     "name": "sandals"
                 },
@@ -94,7 +94,7 @@
         },
         {
             "name": "outerwear",
-            "category": [
+            "categories": [
                 {
                     "name": "sweater"
                 },

@@ -4,7 +4,7 @@ import {firebase} from "../utilities/firebase";
 
 const db = getDatabase(firebase);
 
-export const readClosetData = async(userName='admin') => {
+export const getClothesData = async(userName='admin') => {
     const dataRef = ref(db, `Users/${userName}/closet`);
     const snapshot = await get(dataRef);
     const data = snapshot.val();
@@ -13,7 +13,7 @@ export const readClosetData = async(userName='admin') => {
         return [];
     }
 
-    // Fetch image URLs for each clothing item
+    // Replace image path with real URLs for each clothing item
     const updatedData = await Promise.all(
         data.map(async (clothing) => {
           try {
@@ -25,6 +25,18 @@ export const readClosetData = async(userName='admin') => {
         }))
     console.log(updatedData);
     return updatedData;
+}
+
+export const getCategories = async() => {
+    const dataRef = ref(db, 'parentCategories');
+    const snapshot = await get(dataRef);
+    const data = snapshot.val();
+    if (!data) {
+        console.log('No data found');
+        return [];
+    }
+    console.log(data);
+    return data;
 }
 
 export const writeData = (path, data) => {
