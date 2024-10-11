@@ -1,88 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddClothesButton from "../components/AddClothesButton";
 import EditForm from "../components/EditForm";
 
-// import clothes icons
-// import AllIcon from "../assets/all.svg";
-// import AccessoriesIcon from "../assets/icons/accessories.svg";
-import ClosetIcon from "../assets/icons/closet.svg";
-import HoodieIcon from "../assets/icons/hoodie.svg";
-import BootsIcon from "../assets/icons/boots.svg";
-import DressIcon from "../assets/icons/dress.svg";
-import DressShoesIcon from "../assets/icons/dressshoes.svg";
-import LongSleeveIcon from "../assets/icons/longsleeve.svg";
-import PantsIcon from "../assets/icons/pants.svg";
-import SandalsIcon from "../assets/icons/sandals.svg";
-import ShortsIcon from "../assets/icons/shorts.svg";
-import SneakersIcon from "../assets/icons/sneakers.svg";
-import TShirtIcon from "../assets/icons/t-shirt.svg";
-import ShirtIcon from "../assets/icons/shirt.svg";
-import SweaterIcon from "../assets/icons/sweater.svg";
-import JacketIcon from "../assets/icons/jacket.svg";
-import RainJacketIcon from "../assets/icons/rainjacket.svg";
-import CoatIcon from "../assets/icons/coat.svg";
-import SkirtIcon from "../assets/icons/skirt.svg";
-
-// Import clothes SVG
-import HoodieSVG from "../assets/test.svg";
-import PantSVG from "../assets/jeans.svg";
-import SneakersSVG from "../assets/shoesTest.svg";
+import { getCategories, getClothesData } from "../utilities/database";
 
 function Closet() {
   const [showModal, setShowModal] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("All");
 
-  //TODO: Fetch categories from database
-  const categories = [
-    "All",
-    "TShirt",
-    "Shirt",
-    "LongSleeve",
-    "Dress",
-    "Shorts",
-    "Pants",
-    "Skirt",
-    "Sandals",
-    "Sneakers",
-    "Boots",
-    "DressShoes",
-    "Sweater",
-    "Hoodie",
-    "Jacket",
-    "RainJacket",
-    "Coat",
-  ];
+  const [clothes, setClothes] = useState([]);
+  const [categories, setCategories] = useState(["All"]);
 
-  // Map categories to their icons
-  const categoryIcons = {
-    All: ClosetIcon, // AllIcon or ClosetIcon
-    TShirt: TShirtIcon,
-    Shirt: ShirtIcon,
-    LongSleeve: LongSleeveIcon,
-    Dress: DressIcon,
-    Shorts: ShortsIcon,
-    Pants: PantsIcon,
-    Skirt: SkirtIcon,
-    Sandals: SandalsIcon,
-    Sneakers: SneakersIcon,
-    Boots: BootsIcon,
-    DressShoes: DressShoesIcon,
-    Sweater: SweaterIcon,
-    Hoodie: HoodieIcon,
-    Jacket: JacketIcon,
-    RainJacket: RainJacketIcon,
-    Coat: CoatIcon,
-  };
+  useEffect(() => {
+    getCategories().then((parentCategories) => {
+      const categoryNames = parentCategories.flatMap((parentCategory) => {
+      return parentCategory.categories.map((category) => category.name);
+      })
+      setCategories(["All", ...categoryNames]);
+      console.log(categoryNames);
+    });
+
+    getClothesData().then((data) => {
+      if (data){
+        setClothes(data);
+      }
+    });
+    
+  }, [])
 
   // TODO: Fetch all clothes data for this person
   // Display clothes filted by the category
-
-  const clothes = [
-    // Populate this array with actual clothing items with a category property
-    { imageUrl: HoodieSVG, category: "Hoodie" },
-    { imageUrl: PantSVG, category: "Pants" },
-    { imageUrl: SneakersSVG, category: "Sneakers" },
-  ];
 
   const filteredClothes =
     selectedCategory === "All"
@@ -105,7 +52,7 @@ function Closet() {
               }`}
             >
               <img
-                src={categoryIcons[category]}
+                src={`src/assets/icons/${category}.svg`}
                 alt={category}
                 className="w-10 h-10 object-contain"
               />
@@ -127,7 +74,7 @@ function Closet() {
             >
               {/* Use SVG or image for each clothing item */}
               <img
-                src={item.imageUrl}
+                src={item.imageURL}
                 alt={`Clothing item ${index + 1}`}
                 className="w-full h-auto"
               />

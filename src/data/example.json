@@ -7,8 +7,8 @@
                 {
                     "id": "1",
                     "imageURL": "blackShirt.png",
-                    "parentCategory": "top",
-                    "category": "t-shirt",
+                    "parentCategory": "Top",
+                    "category": "TShirt",
                     "color": "#000000",
                     "warmthLevel": 3,
                     "preference": 5
@@ -16,8 +16,8 @@
                 {
                     "id": "2",
                     "imageURL": "shoes.png",
-                    "parentCategory": "footwear",
-                    "category": "sneakers",
+                    "parentCategory": "Footwear",
+                    "category": "Sneakers",
                     "color": "#000000",
                     "warmthLevel": 3,
                     "preference": 5
@@ -25,8 +25,8 @@
                 {
                     "id": "3",
                     "imageURL": "whiteSweater.png",
-                    "parentCategory": "outerwear",
-                    "category": "sweater",
+                    "parentCategory": "Outerwear",
+                    "category": "Sweater",
                     "color": "#000000",
                     "warmthLevel": 3,
                     "preference": 5
@@ -34,8 +34,8 @@
                 {
                     "id": "4",
                     "imageURL": "yellowPants.png",
-                    "parentCategory": "bottom",
-                    "category": "pants",
+                    "parentCategory": "Bottom",
+                    "category": "Pants",
                     "color": "#000000",
                     "warmthLevel": 3,
                     "preference": 5
@@ -45,70 +45,70 @@
     },
     "parentCategories": [
         {
-            "name": "top",
+            "name": "Top",
             "categories": [
                 {
-                    "name": "t-shirt"
+                    "name": "TShirt"
                 },
                 {
-                    "name": "shirt"
+                    "name": "Shirt"
                 },
                 {
-                    "name": "long sleeve"
+                    "name": "LongSleeve"
                 },
                 {
-                    "name": "dress"
+                    "name": "Dress"
                 }
             ]
         },
         {
-            "name": "bottom",
+            "name": "Bottom",
             "categories": [
                 {
-                    "name": "shorts"
+                    "name": "Shorts"
                 },
                 {
-                    "name": "pants"
+                    "name": "Pants"
                 },
                 {
-                    "name": "skirt"
+                    "name": "Skirt"
                 }
             ]
         },
         {
-            "name": "footwear",
+            "name": "Footwear",
             "categories": [
                 {
-                    "name": "sandals"
+                    "name": "Sandals"
                 },
                 {
-                    "name": "sneakers"
+                    "name": "Sneakers"
                 },
                 {
-                    "name": "boots"
+                    "name": "Boots"
                 },
                 {
-                    "name": "dress shoes"
+                    "name": "DressShoes"
                 }
             ]
         },
         {
-            "name": "outerwear",
+            "name": "Outerwear",
             "categories": [
                 {
-                    "name": "sweater"
+                    "name": "Sweater"
                 },
                 {
-                    "name": "hoodie"
+                    "name": "Hoodie"
                 },
                 {
-                    "name": "jacket"
+                    "name": "Jacket"
                 },
                 {
-                    "name": "rain jacket"
+                    "name": "RainJacket"
                 },
                 {
-                    "name": "coat"
+                    "name": "Coat"
                 }
             ]
         }
