@@ -1,116 +1,112 @@
 {
     "Users": {
-        "admin": {
-            "username": "admin",
-            "password": "admin",
-            "closet": [
-                {
-                    "id": "1",
-                    "imageURL": "blackShirt.png",
-                    "parentCategory": "Top",
-                    "category": "TShirt",
-                    "color": "#000000",
-                    "warmthLevel": 3,
-                    "preference": 5
-                },
-                {
-                    "id": "2",
-                    "imageURL": "shoes.png",
-                    "parentCategory": "Footwear",
-                    "category": "Sneakers",
-                    "color": "#000000",
-                    "warmthLevel": 3,
-                    "preference": 5
-                },
-                {
-                    "id": "3",
-                    "imageURL": "whiteSweater.png",
-                    "parentCategory": "Outerwear",
-                    "category": "Sweater",
-                    "color": "#000000",
-                    "warmthLevel": 3,
-                    "preference": 5
-                },
-                {
-                    "id": "4",
-                    "imageURL": "yellowPants.png",
-                    "parentCategory": "Bottom",
-                    "category": "Pants",
-                    "color": "#000000",
-                    "warmthLevel": 3,
-                    "preference": 5
-                }
-            ]
-        }
+      "admin": {
+        "closet": {
+          "0ac94229-c92c-4344-88c7-ae5b0bc643fc": {
+            "category": "Pants",
+            "color": "#f6cc82",
+            "imageURL": "https://firebasestorage.googleapis.com/v0/b/cs392-fitforecast.appspot.com/o/0ac94229-c92c-4344-88c7-ae5b0bc643fc.png?alt=media&token=0b2e20ea-33a5-4248-9989-b2b8eb24011c",
+            "parentCategory": "Bottom",
+            "preference": "1",
+            "warmthLevel": "thin"
+          },
+          "700ffd68-6d74-4e0f-86f2-2e5c33cd5c2c": {
+            "category": "Sweater",
+            "color": "#f6ecdc",
+            "imageURL": "https://firebasestorage.googleapis.com/v0/b/cs392-fitforecast.appspot.com/o/700ffd68-6d74-4e0f-86f2-2e5c33cd5c2c.png?alt=media&token=fbfd608e-0524-4b71-8c45-2f817cafc416",
+            "parentCategory": "Outerwear",
+            "preference": "10",
+            "warmthLevel": "medium"
+          },
+          "79ca4466-8771-4e2f-9aed-cd6dcbf560b4": {
+            "category": "Sneakers",
+            "color": "#6f6d6d",
+            "imageURL": "https://firebasestorage.googleapis.com/v0/b/cs392-fitforecast.appspot.com/o/79ca4466-8771-4e2f-9aed-cd6dcbf560b4.png?alt=media&token=24eed595-4c75-4ce7-b9dd-ba80b4ef5f24",
+            "parentCategory": "Footwear",
+            "preference": "5",
+            "warmthLevel": "medium"
+          },
+          "fc6e8611-a6e2-46e1-ace5-90f844579ca6": {
+            "category": "TShirt",
+            "color": "#000000",
+            "imageURL": "https://firebasestorage.googleapis.com/v0/b/cs392-fitforecast.appspot.com/o/fc6e8611-a6e2-46e1-ace5-90f844579ca6.png?alt=media&token=93e5e574-039e-47c0-b77a-932df6a3bf46",
+            "parentCategory": "Top",
+            "preference": "6",
+            "warmthLevel": "thin"
+          }
+        },
+        "password": "admin",
+        "username": "admin"
+      }
     },
     "parentCategories": [
-        {
-            "name": "Top",
-            "categories": [
-                {
-                    "name": "TShirt"
-                },
-                {
-                    "name": "Shirt"
-                },
-                {
-                    "name": "LongSleeve"
-                },
-                {
-                    "name": "Dress"
-                }
-            ]
-        },
-        {
-            "name": "Bottom",
-            "categories": [
-                {
-                    "name": "Shorts"
-                },
-                {
-                    "name": "Pants"
-                },
-                {
-                    "name": "Skirt"
-                }
-            ]
-        },
-        {
-            "name": "Footwear",
-            "categories": [
-                {
-                    "name": "Sandals"
-                },
-                {
-                    "name": "Sneakers"
-                },
-                {
-                    "name": "Boots"
-                },
-                {
-                    "name": "DressShoes"
-                }
-            ]
-        },
-        {
-            "name": "Outerwear",
-            "categories": [
-                {
-                    "name": "Sweater"
-                },
-                {
-                    "name": "Hoodie"
-                },
-                {
-                    "name": "Jacket"
-                },
-                {
-                    "name": "RainJacket"
-                },
-                {
-                    "name": "Coat"
-                }
-            ]
-        }
+      {
+        "categories": [
+          {
+            "name": "TShirt"
+          },
+          {
+            "name": "Shirt"
+          },
+          {
+            "name": "LongSleeve"
+          },
+          {
+            "name": "Dress"
+          }
+        ],
+        "name": "Top"
+      },
+      {
+        "categories": [
+          {
+            "name": "Shorts"
+          },
+          {
+            "name": "Pants"
+          },
+          {
+            "name": "Skirt"
+          }
+        ],
+        "name": "Bottom"
+      },
+      {
+        "categories": [
+          {
+            "name": "Sandals"
+          },
+          {
+            "name": "Sneakers"
+          },
+          {
+            "name": "Boots"
+          },
+          {
+            "name": "DressShoes"
+          }
+        ],
+        "name": "Footwear"
+      },
+      {
+        "categories": [
+          {
+            "name": "Sweater"
+          },
+          {
+            "name": "Hoodie"
+          },
+          {
+            "name": "Jacket"
+          },
+          {
+            "name": "RainJacket"
+          },
+          {
+            "name": "Coat"
+          }
+        ],
+        "name": "Outerwear"
+      }
     ]
-}
+  }

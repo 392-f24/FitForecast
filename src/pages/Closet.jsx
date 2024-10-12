@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import AddClothesButton from "../components/AddClothesButton";
 import EditForm from "../components/EditForm";
 
-import { getCategories, getClothesData } from "../utilities/database";
+import {getClothesData, getCategories} from "../utilities/database";
 
 function Closet() {
   const [showModal, setShowModal] = useState(false);
@@ -10,21 +10,22 @@ function Closet() {
 
   const [clothes, setClothes] = useState([]);
   const [categories, setCategories] = useState(["All"]);
+  const [categoriesDict, setCategoriesDict] = useState({});
 
   useEffect(() => {
-    getCategories().then((parentCategories) => {
-      const categoryNames = parentCategories.flatMap((parentCategory) => {
-      return parentCategory.categories.map((category) => category.name);
-      })
-      setCategories(["All", ...categoryNames]);
-      console.log(categoryNames);
-    });
-
-    getClothesData().then((data) => {
-      if (data){
-        setClothes(data);
+    getCategories().then(({ categoriesOrdered, categoriesDict }) => {
+      if (categoriesOrdered && categoriesDict) {
+        setCategories(categoriesOrdered);
+        setCategoriesDict(categoriesDict);
       }
-    });
+  });
+
+  const unsubscribe = getClothesData('admin', (clothesData) => {
+    setClothes(clothesData);
+  });
+
+  // Clean up the listener when the component unmounts
+  return () => unsubscribe();
     
   }, [])
 
@@ -38,11 +39,11 @@ function Closet() {
 
   return (
     <div className="p-4">
-      <EditForm showModal={showModal} setShowModal={setShowModal} />
+      <EditForm showModal={showModal} setShowModal={setShowModal} categories={categories} categoriesDict={categoriesDict}/>
 
       {/* Category icons */}
       <div className="flex space-x-4 overflow-x-auto mb-4">
-        {categories.map((category, index) => (
+        {["All", ...categories].map((category, index) => (
           <div key={index}>
             <button
               // key={index}

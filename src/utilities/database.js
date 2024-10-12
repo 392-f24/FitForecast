@@ -1,47 +1,63 @@
-import { getDatabase, ref, get,set, remove} from "firebase/database";
-import { generateURL } from "./storage";
-import {firebase} from "../utilities/firebase";
+import { getDatabase, ref, get, set, remove, onValue } from "firebase/database";
+import { firebase } from "../utilities/firebase";
 
 const db = getDatabase(firebase);
 
-export const getClothesData = async(userName='admin') => {
-    const dataRef = ref(db, `Users/${userName}/closet`);
-    const snapshot = await get(dataRef);
-    const data = snapshot.val();
-    if (!data) {
-        console.log('No data found');
-        return [];
-    }
+export const getClothesData = (username = 'admin', callback) => {
+    const dataRef = ref(db, `Users/${username}/closet`);
 
-    // Replace image path with real URLs for each clothing item
-    const updatedData = await Promise.all(
-        data.map(async (clothing) => {
-          try {
-            return { ...clothing, imageURL: await generateURL(clothing.imageURL) };
-          } catch (error) {
-            console.error("Error fetching image URL for clothing:", clothing.imageURL, error);
-            return clothing;  // Return the original clothing in case of error
-          }
-        }))
-    console.log(updatedData);
-    return updatedData;
+    const unsuscribe = onValue(dataRef, async (snapshot) => {
+        const data = snapshot.val(); // closet
+        if (!data) {
+            console.log('No data found');
+            return [];
+        }
+        // the imageURL now is genreated when uploading the image, thus the code below is no longer needed
+        // Replace image path with real URLs for each clothing item
+        // const updatedData = await Promise.all(
+        //     Object.entries(data).map(async ([id, clothing]) => {
+        //         try {
+        //             return { ...clothing, imageURL: await generateURL(id) };
+        //         } catch (error) {
+        //             console.error("Error fetching image URL for clothing:", clothing.imageURL, error);
+        //             return clothing;  // Return the original clothing in case of error
+        //         }
+        //     }))
+        // console.log(updatedData);
+        const clothes = Object.values(data);
+        callback(clothes);
+    });
+
+    return unsuscribe;
 }
 
-export const getCategories = async() => {
+export const getCategories = async () => {
     const dataRef = ref(db, 'parentCategories');
-    const snapshot = await get(dataRef);
-    const data = snapshot.val();
-    if (!data) {
-        console.log('No data found');
-        return [];
-    }
-    console.log(data);
-    return data;
-}
+    return get(dataRef)
+        .then((snapshot) => {
+            const data = snapshot.val();
+            if (!data) {
+                console.log('No data found');
+                return { categoriesOrdered: [], categoriesDict: {} };
+            }
 
-export const writeData = (path, data) => {
-    const dbRef = ref(db, path);
-    set(dbRef, data);
+            const entries = data.flatMap((parentCategory) =>
+                parentCategory.categories.map((category) => [category.name, parentCategory.name])
+            );
+
+            const categoriesDict = Object.fromEntries(entries);
+            const categoriesOrdered = entries.map((arr) => arr[0]);
+            return { categoriesOrdered, categoriesDict };
+        })
+        .catch((error) => {
+            console.error('Error fetching categories:', error);
+            return { categoriesOrdered: [], categoriesDict: {} };
+        });
+};
+
+export const writeData = async (username = 'admin', clothingId, data) => {
+    const dbRef = ref(db, `Users/${username}/closet/${clothingId}`);
+    await set(dbRef, data);
     console.log('data written');
 }
 
