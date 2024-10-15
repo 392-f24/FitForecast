@@ -2,26 +2,39 @@
 
 // skeleton inspired by https://www.creative-tim.com/learning-lab/tailwind-starter-kit/documentation/react/modals/regular
 // form layout reference https://tailwindui.com/components/application-ui/forms/form-layouts
-
+import { v4 as uuidv4 } from 'uuid';
+import { uploadFile } from "../utilities/storage";
 import CustomDropdown from "./CustomDropdown";
 import ImageUploader from "./ImageUploader";
+import { writeData } from '../utilities/database';
+import { getDownloadURL } from 'firebase/storage';
+const warmthLevel = ["thin", "medium", "thick"];
 
-const categories = [
-  "shirts",
-  "jackets",
-  "pants",
-  "shoes",
-  "accessories",
-];
-const thickness = ["thin", "medium", "thick"];
-
-const EditForm = ({ showModal, setShowModal, data}) => {
-  data = data || {image: "", name: "", category: categories[0], thickness: thickness[0], color: "#000000", preference: 5};
-  const handleSubmit = (e) => {
+const EditForm = ({ showModal, setShowModal, defaultData, categories, categoriesDict}) => {
+  defaultData = defaultData || {image: "", name: "", category: categories[0], warmthLevel: warmthLevel[0], color: "#000000", preference: 5};
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = new FormData(e.target)
-    const formObject = Object.fromEntries(data.entries())
-    console.log(formObject)
+    const data = new FormData(e.target);
+    const formObject = Object.fromEntries(data.entries());
+
+    // rename the image when uploading
+    const clothingId = uuidv4();
+    // upload image to firebase storage and wait until it is uploaded
+    const snapshot = await uploadFile(`${clothingId}.png`, formObject.image);
+    const imageURL = await getDownloadURL(snapshot.ref);
+    console.log(imageURL);
+    // write data to database
+    const ClothingData = {
+      category: formObject.category,
+      parentCategory: categoriesDict[formObject.category],
+      warmthLevel: formObject.warmthLevel,
+      color: formObject.color,
+      preference: formObject.preference,
+      imageURL
+    }
+    console.log(ClothingData);
+    await writeData("admin", clothingId, ClothingData);
+
     setShowModal(false);
   }
   return (
@@ -48,7 +61,7 @@ const EditForm = ({ showModal, setShowModal, data}) => {
                 <div className="relative p-6 flex-auto">
                   <div className="sm:col-span-4">
                     <div className="flex justify-center rounded-lg border border-dashed border-gray-900/25 px-2 py-2">
-                      <ImageUploader defaultImage={data.image}/>
+                      <ImageUploader defaultImage={defaultData.image}/>
                     </div>
                   </div>
 
@@ -74,25 +87,25 @@ const EditForm = ({ showModal, setShowModal, data}) => {
 
                   <div className="sm:col-span-4">
                     <label
-                      htmlFor="cateogry"
+                      htmlFor="category"
                       className="block text-sm font-medium leading-6 text-gray-900 text-left mt-3"
                     >
-                      cateogry
+                      category
                     </label>
                     <div className="mt-1">
-                      <CustomDropdown fieldId="cateogry" FieldName="cateogry" options={categories} defaultValue={data.category}/>
+                      <CustomDropdown fieldId="category" FieldName="category" options={categories} defaultValue={defaultData.category}/>
                     </div>
                   </div>
 
                   <div className="sm:col-span-4">
                     <label
-                      htmlFor="thickness"
+                      htmlFor="warmthLevel"
                       className="block text-sm font-medium leading-6 text-gray-900 text-left mt-3"
                     >
-                      thickness
+                      warmthLevel
                     </label>
                     <div className="mt-1">
-                      <CustomDropdown fieldId="thickness" FieldName="thickness" options={thickness} defaultValue={data.thickness}/>
+                      <CustomDropdown fieldId="warmthLevel" FieldName="warmthLevel" options={warmthLevel} defaultValue={defaultData.warmthLevel}/>
                     </div>
                   </div>
 
@@ -109,7 +122,7 @@ const EditForm = ({ showModal, setShowModal, data}) => {
                           id="color"
                           name="color"
                           type="color"
-                          defaultValue={data.color}
+                          defaultValue={defaultData.color}
                           className="block flex-1 border-0 h-8 bg-transparent"
                         />
                       </div>
@@ -127,7 +140,7 @@ const EditForm = ({ showModal, setShowModal, data}) => {
                       <input
                         id="preference"
                         name="preference"
-                        defaultValue={data.preference}
+                        defaultValue={defaultData.preference}
                         type="range"
                         min="0"
                         max="10"
