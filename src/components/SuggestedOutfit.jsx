@@ -12,6 +12,7 @@ import LeatherJacket from "../assets/leatherjacket.png";
 import WhiteShirt from "../assets/whiteshirt.png";
 import WhiteSweater from "../assets/whitesweater.png";
 import BlackShirt from "../assets/blackShirt.png";
+import { getSuggestedOutfit } from "../utilities/functions";
 
 // Categorized clothing items
 const pants = [
@@ -55,6 +56,9 @@ const SuggestedOutfit = () => {
   const suggestNewOutfit = () => {
     setOutfit(generateOutfit());
   };
+
+  const functionResult = getSuggestedOutfit();
+  console.log(functionResult);
 
   return (
     <div className="flex flex-col gap-4">
