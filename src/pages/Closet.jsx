@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import AddClothesButton from "../components/AddClothesButton";
 import EditForm from "../components/EditForm";
-
+import { auth } from '../utilities/firebase';
 import {getClothesData, getCategories} from "../utilities/database";
 
 function Closet() {
@@ -11,7 +11,7 @@ function Closet() {
   const [clothes, setClothes] = useState([]);
   const [categories, setCategories] = useState(["All"]);
   const [categoriesDict, setCategoriesDict] = useState({});
-
+  const currentUser = auth.currentUser;
   useEffect(() => {
     getCategories().then(({ categoriesOrdered, categoriesDict }) => {
       if (categoriesOrdered && categoriesDict) {
@@ -20,7 +20,7 @@ function Closet() {
       }
   });
 
-  const unsubscribe = getClothesData('admin', (clothesData) => {
+  const unsubscribe = getClothesData(currentUser.uid, (clothesData) => {
     setClothes(clothesData);
   });
 
