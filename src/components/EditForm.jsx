@@ -8,9 +8,13 @@ import CustomDropdown from "./CustomDropdown";
 import ImageUploader from "./ImageUploader";
 import { writeData } from '../utilities/database';
 import { getDownloadURL } from 'firebase/storage';
+import { auth } from '../utilities/firebase';
+
 const warmthLevel = ["thin", "medium", "thick"];
 
 const EditForm = ({ showModal, setShowModal, defaultData, categories, categoriesDict}) => {
+  const currentUser = auth.currentUser;
+
   defaultData = defaultData || {image: "", name: "", category: categories[0], warmthLevel: warmthLevel[0], color: "#000000", preference: 5};
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,7 +37,13 @@ const EditForm = ({ showModal, setShowModal, defaultData, categories, categories
       imageURL
     }
     console.log(ClothingData);
-    await writeData("admin", clothingId, ClothingData);
+    // await writeData("admin", clothingId, ClothingData);
+    if (currentUser) {
+      await writeData(currentUser.uid, clothingId, ClothingData);
+      console.log(currentUser.uid);
+    } else {
+      console.error("No authenticated user")
+    }
 
     setShowModal(false);
   }
