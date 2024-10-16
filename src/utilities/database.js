@@ -1,10 +1,10 @@
-import { getDatabase, ref, get, set, remove, onValue } from "firebase/database";
-import { firebase } from "../utilities/firebase";
+import { ref, get, set, remove, onValue } from "firebase/database";
+import { database } from "../utilities/firebase";
 
-const db = getDatabase(firebase);
-
-export const getClothesData = (username = 'admin', callback) => {
-    const dataRef = ref(db, `Users/${username}/closet`);
+// const db = getDatabase(firebase);
+export const getClothesData = (uid, callback) => {
+//export const getClothesData = (username = 'admin', callback) => {
+    const dataRef = ref(database, `Users/${uid}/closet`);
 
     const unsuscribe = onValue(dataRef, async (snapshot) => {
         const data = snapshot.val(); // closet
@@ -32,7 +32,7 @@ export const getClothesData = (username = 'admin', callback) => {
 }
 
 export const getCategories = async () => {
-    const dataRef = ref(db, 'parentCategories');
+    const dataRef = ref(database, 'parentCategories');
     return get(dataRef)
         .then((snapshot) => {
             const data = snapshot.val();
@@ -54,15 +54,15 @@ export const getCategories = async () => {
             return { categoriesOrdered: [], categoriesDict: {} };
         });
 };
-
-export const writeData = async (username = 'admin', clothingId, data) => {
-    const dbRef = ref(db, `Users/${username}/closet/${clothingId}`);
+export const writeData = async (uid, clothingId, data) => {
+//export const writeData = async (username = 'admin', clothingId, data) => {
+    const dbRef = ref(database, `Users/${uid}/closet/${clothingId}`);
     await set(dbRef, data);
     console.log('data written');
 }
 
-export const deleteData = (path) => {
-    const dbRef = ref(db, path);
+export const deleteData = (uid, clothingId) => {
+    const dbRef = ref(database, `Users/${uid}/closet/${clothingId}`);
     remove(dbRef);
     console.log('data deleted');
 }
