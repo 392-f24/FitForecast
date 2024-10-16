@@ -1,11 +1,8 @@
 // auth.js
 import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 import { auth, database } from './firebase';
-//import { firebase } from './firebase';  // Import firebase from firebase.js
 import { ref, set, get } from "firebase/database"; //Import database functions
 
-// Initialize Firebase Authentication and get a reference to the service
-//const auth = getAuth(firebase);
 const provider = new GoogleAuthProvider();
 
 // Function to sign in with Google
@@ -24,20 +21,18 @@ export const signInWithGoogle = async () => {
   }
 };
 
-const saveUserData = (user) => {
+const saveUserData = async (user) => {
     const userRef = ref(database, `Users/${user.uid}`);
-
-    get(userRef).then((snapshot) => {
-        if (!snapshot.exists()) {
-            //user doesn't exist
-            set(userRef, {
-                closet: {},
-                username: user.displayName,
-                email: user.email,   
-            });
-            console.log('User data added to database')
-        }
-    });
+    const snapshot = await get(userRef);
+    if (!snapshot.exists()) {
+        //user doesn't exist
+        await set(userRef, {
+            closet: {},
+            username: user.displayName,
+            email: user.email,   
+        });
+        console.log('User data added to database')
+    }
 };
 
 // Function to sign out

@@ -21,9 +21,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const firebase = initializeApp(firebaseConfig);
 
-//Export authentication instance
 export const auth = getAuth(initializeApp(firebaseConfig));
 export const database = getDatabase(firebase);
 export const storage = getStorage(firebase);
 export default firebase;
-console.log('Auth initiated', auth)
