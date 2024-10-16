@@ -13,6 +13,7 @@ import WhiteShirt from "../assets/whiteshirt.png";
 import WhiteSweater from "../assets/whitesweater.png";
 import BlackShirt from "../assets/blackShirt.png";
 import { getSuggestedOutfit } from "../utilities/functions";
+import { useEffect } from "react";
 
 // Categorized clothing items
 const pants = [
@@ -57,8 +58,30 @@ const SuggestedOutfit = () => {
     setOutfit(generateOutfit());
   };
 
-  const functionResult = getSuggestedOutfit();
-  console.log(functionResult);
+  // temporary dummy weather data
+  useEffect(() => {
+    const weatherData = {
+      location: "Evanston, IL",
+      currentTemperature: 67,
+      lowTemperature: 62,
+      highTemperature: 70,
+      weatherCondition: "rain",
+      chanceOfRain: 90,
+
+    };
+
+    const fetchOutfit = async () => {
+      try {
+        const result = await getSuggestedOutfit(weatherData);
+        console.log(result);
+      } catch (error) {
+        console.error("Error fetching suggested outfit:", error);
+      }
+    };
+
+    fetchOutfit();
+  }, []); // currently only runs on mount
+
 
   return (
     <div className="flex flex-col gap-4">
