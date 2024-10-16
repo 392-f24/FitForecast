@@ -30,7 +30,7 @@ const shoes = [
 
 const shirts = [
   { name: "White Shirt", image: WhiteShirt },
-  { name:"Black Shirt", image: BlackShirt},
+  { name: "Black Shirt", image: BlackShirt },
 ];
 
 const jackets = [
@@ -44,7 +44,10 @@ const getRandomItem = (category) => {
   return category[randomIndex];
 };
 
-const SuggestedOutfit = () => {
+const SuggestedOutfit = ({ weatherData, weatherError}) => {
+  //
+  // REMOVE AFTER CLOUD FUNCTION IS READY
+  // 
   const generateOutfit = () => ({
     pants: getRandomItem(pants),
     shoes: getRandomItem(shoes),
@@ -57,30 +60,24 @@ const SuggestedOutfit = () => {
   const suggestNewOutfit = () => {
     setOutfit(generateOutfit());
   };
-
+  //
+  //
+  //
   // temporary dummy weather data
   useEffect(() => {
-    const weatherData = {
-      location: "Evanston, IL",
-      currentTemperature: 67,
-      lowTemperature: 62,
-      highTemperature: 70,
-      weatherCondition: "rain",
-      chanceOfRain: 90,
-
-    };
-
     const fetchOutfit = async () => {
-      try {
-        const result = await getSuggestedOutfit(weatherData);
-        console.log(result);
-      } catch (error) {
-        console.error("Error fetching suggested outfit:", error);
+      if (weatherData && !weatherError) {
+        try {
+          const result = await getSuggestedOutfit(weatherData);
+          console.log(result);
+        } catch (error) {
+          console.error("Error fetching suggested outfit:", error);
+        }
       }
     };
 
     fetchOutfit();
-  }, []); // currently only runs on mount
+  }, [weatherData]);
 
 
   return (

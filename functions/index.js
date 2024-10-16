@@ -7,11 +7,11 @@ exports.getOutfit = onCall(async (request) => {
     // Retrieve the weather from the client request
     const weatherData = request.data.weatherData;
     const location = weatherData.location;
-    const current = weatherData.currentTemperature;
-    const high = weatherData.highTemperature;
-    const low = weatherData.lowTemperature;
-    const condition = weatherData.weatherCondition;
-    const chance = weatherData.chanceOfRain;
+    const current = weatherData.current_temperature;
+    const high = weatherData.high_temperature;
+    const low = weatherData.low_temperature;
+    const condition = weatherData.weather_condition;
+    const chance = weatherData.chance_of_rain;
 
     // Retrieve data from Realtime Database
     const snapshot = await admin.database().ref('/parentCategories').once('value');
@@ -26,12 +26,12 @@ exports.getOutfit = onCall(async (request) => {
       data: {
         database: `Parent Category 1: ${parentCategories[0].name}`,
         weather: {
-          location: weatherData.location,
-          current: weatherData.currentTemperature,
-          high: weatherData.highTemperature,
-          low: weatherData.lowTemperature,
-          condition: weatherData.weatherCondition,
-          chance: weatherData.chanceOfRain,
+          location: location,
+          current: current,
+          high: high,
+          low: low,
+          condition: condition,
+          chance: chance,
         }
       }
     };
