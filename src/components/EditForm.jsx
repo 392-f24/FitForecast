@@ -48,7 +48,7 @@ const EditForm = ({
   const handleCategoryChange = (value) => {
     setSelectedCategory(value);
 
-    if (categoriesDict[selectedCategory] !== "Footwear") {
+    if (categoriesDict[value] !== "Footwear") {
       setShowWarmthLevel(true);
     } else {
       setShowWarmthLevel(false);
