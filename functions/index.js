@@ -23,6 +23,8 @@ exports.getOutfit = onCall(async (request) => {
 
     // Respond with a valid JSON object
     return {
+      // top: 'url',
+      // bottom: 'url',
       data: {
         database: `Parent Category 1: ${parentCategories[0].name}`,
         weather: {

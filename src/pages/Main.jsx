@@ -39,11 +39,14 @@ function Main() {
   const [weatherData, setWeatherData] = useState(null);
   const [error, setError] = useState(null);
 
+  // Used for testing purposes
+  const [isEvanston, setIsEvanston] = useState(true);
+
   useEffect(() => {
     const fetchWeatherData = async () => {
       try {
-        const lat = 42.0451;
-        const lon = -87.6877;
+        const lat = isEvanston ? 42.0451 : 25.7617;
+        const lon = isEvanston ? -87.6877 : -80.1918;
         const apiKey = import.meta.env.VITE_OPENWEATHER_API_KEY;
         const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`;
 
@@ -53,6 +56,8 @@ function Main() {
         }
 
         const data = await response.json();
+
+        console.log(data);
 
         const currentWeather = {
           location: data.name,
@@ -64,9 +69,11 @@ function Main() {
           weather_icon: weatherIconMapping[data.weather[0].icon],
         };
 
+        console.log(currentWeather);
         setWeatherData(currentWeather);
       } catch (err) {
         setError(err.message);
+
         const dummyWeatherData = {
           location: "Evanston",
           current_temperature: 62,
@@ -76,19 +83,32 @@ function Main() {
           chance_of_rain: 12,
           weather_icon: weatherIconMapping["03d"],
         };
+
+        console.log(dummyWeatherData);
         setWeatherData(dummyWeatherData);
       }
     };
 
     fetchWeatherData();
-  }, []);
+  }, [isEvanston]);
+
+
+  const toggleLocation = () => {
+    setIsEvanston(!isEvanston);
+  };
 
   return (
     <div className="flex flex-col items-center p-4 gap-4">
       <WeatherWidget weatherData={weatherData} error={error} />
+      <button
+        onClick={toggleLocation}
+        className="text-white bg-black p-1 rounded text-xs">
+        <span className="material-symbols-rounded text-xs">
+          autorenew
+        </span>
+      </button>
       <SuggestedOutfit weatherData={weatherData} error={error} />
-    </div>
+    </div >
   );
-}
-
+};
 export default Main;
