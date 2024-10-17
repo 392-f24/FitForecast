@@ -5,7 +5,7 @@ import Closet from "./pages/Closet";
 import Header from "./components/Header";
 import Login from "./pages/Login";
 import { useState, useEffect } from "react";
-import { getAuth, onAuthStateChanged, setPersistence, browserLocalPersistence } from "firebase/auth";
+import { getAuth, onAuthStateChanged, setPersistence, browserSessionPersistence } from "firebase/auth";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -14,7 +14,7 @@ function App() {
   
   useEffect(() => {
 
-    setPersistence(auth, browserLocalPersistence)
+    setPersistence(auth, browserSessionPersistence)
     .then(() => {
 
       const unsubscribe = onAuthStateChanged(auth, (user) => {
