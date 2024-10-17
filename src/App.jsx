@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Main from "./pages/Main";
 import Closet from "./pages/Closet";
 import Header from "./components/Header";
+import EditForm from "./components/EditForm";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/closet" element={<Closet />} />
+            <Route path="/add-clothes" element={<EditForm />} />
           </Routes>
         </main>
       </div>

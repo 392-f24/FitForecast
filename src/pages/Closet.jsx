@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import AddClothesButton from "../components/AddClothesButton";
 import EditForm from "../components/EditForm";
 
-import {getClothesData, getCategories} from "../utilities/database";
+import { getClothesData, getCategories } from "../utilities/database";
 
 function Closet() {
   const [showModal, setShowModal] = useState(false);
+  // used for double click on clothing item to edit vs adding a new item
+  const [editingClothes, setEditingClothes] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("All");
 
   const [clothes, setClothes] = useState([]);
@@ -18,16 +20,15 @@ function Closet() {
         setCategories(categoriesOrdered);
         setCategoriesDict(categoriesDict);
       }
-  });
+    });
 
-  const unsubscribe = getClothesData('admin', (clothesData) => {
-    setClothes(clothesData);
-  });
+    const unsubscribe = getClothesData("admin", (clothesData) => {
+      setClothes(clothesData);
+    });
 
-  // Clean up the listener when the component unmounts
-  return () => unsubscribe();
-    
-  }, [])
+    // Clean up the listener when the component unmounts
+    return () => unsubscribe();
+  }, []);
 
   // TODO: Fetch all clothes data for this person
   // Display clothes filted by the category
@@ -39,7 +40,13 @@ function Closet() {
 
   return (
     <div className="p-4">
-      <EditForm showModal={showModal} setShowModal={setShowModal} categories={categories} categoriesDict={categoriesDict}/>
+      <EditForm
+        showModal={showModal}
+        setShowModal={setShowModal}
+        categories={categories}
+        categoriesDict={categoriesDict}
+        editing={editingClothes}
+      />
 
       {/* Category icons */}
       <div className="flex space-x-4 overflow-x-auto mb-4">
@@ -84,7 +91,12 @@ function Closet() {
         </div>
       </div>
 
-      <AddClothesButton onClick={() => setShowModal(true)} />
+      <AddClothesButton
+        onClick={() => {
+          setEditingClothes(false);
+          setShowModal(true);
+        }}
+      />
     </div>
   );
 }
