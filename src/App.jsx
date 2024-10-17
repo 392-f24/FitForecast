@@ -29,8 +29,8 @@ function App() {
         <Header />
         <main className="flex-grow mt-16">
           <Routes>
-            <Route path="/" element={user ? <Main /> : <Navigate to="/login"/>} />
-            <Route path="/closet" element={user ? <Closet /> : <Navigate to="/login" />} />
+            <Route path="/" element={<Main />} />
+            <Route path="/closet" element={<Closet />} />
             <Route path="/login" element={<Login />} />
           </Routes>
         </main>
