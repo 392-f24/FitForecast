@@ -1,7 +1,7 @@
-import {firebase} from "../utilities/firebase";
+import { storage } from "../utilities/firebase";
 import { getStorage, ref, getDownloadURL, uploadBytes} from "firebase/storage";
 
-const storage = getStorage(firebase);
+//const storage = getStorage(firebase);
 
 export const generateURL = (id) => {
     return getDownloadURL(ref(storage, `${id}.png`));

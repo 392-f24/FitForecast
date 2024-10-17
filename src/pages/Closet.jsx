@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import AddClothesButton from "../components/AddClothesButton";
 import EditForm from "../components/EditForm";
-
 import { getClothesData, getCategories } from "../utilities/database";
+import { auth } from '../utilities/firebase';
 
 function Closet() {
   const [showModal, setShowModal] = useState(false);
@@ -13,7 +13,7 @@ function Closet() {
   const [clothes, setClothes] = useState([]);
   const [categories, setCategories] = useState(["All"]);
   const [categoriesDict, setCategoriesDict] = useState({});
-
+  const currentUser = auth.currentUser;
   useEffect(() => {
     getCategories().then(({ categoriesOrdered, categoriesDict }) => {
       if (categoriesOrdered && categoriesDict) {
@@ -22,9 +22,9 @@ function Closet() {
       }
     });
 
-    const unsubscribe = getClothesData("admin", (clothesData) => {
-      setClothes(clothesData);
-    });
+  const unsubscribe = getClothesData(currentUser.uid, (clothesData) => {
+    setClothes(clothesData);
+  });
 
     // Clean up the listener when the component unmounts
     return () => unsubscribe();
