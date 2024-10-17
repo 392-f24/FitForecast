@@ -12,6 +12,8 @@ import LeatherJacket from "../assets/leatherjacket.png";
 import WhiteShirt from "../assets/whiteshirt.png";
 import WhiteSweater from "../assets/whitesweater.png";
 import BlackShirt from "../assets/blackShirt.png";
+import { getSuggestedOutfit } from "../utilities/functions";
+import { useEffect } from "react";
 
 // Categorized clothing items
 const pants = [
@@ -28,7 +30,7 @@ const shoes = [
 
 const shirts = [
   { name: "White Shirt", image: WhiteShirt },
-  { name:"Black Shirt", image: BlackShirt},
+  { name: "Black Shirt", image: BlackShirt },
 ];
 
 const jackets = [
@@ -42,7 +44,10 @@ const getRandomItem = (category) => {
   return category[randomIndex];
 };
 
-const SuggestedOutfit = () => {
+const SuggestedOutfit = ({ weatherData, weatherError}) => {
+  //
+  // REMOVE AFTER CLOUD FUNCTION IS READY
+  // 
   const generateOutfit = () => ({
     pants: getRandomItem(pants),
     shoes: getRandomItem(shoes),
@@ -55,6 +60,25 @@ const SuggestedOutfit = () => {
   const suggestNewOutfit = () => {
     setOutfit(generateOutfit());
   };
+  //
+  //
+  //
+  // temporary dummy weather data
+  useEffect(() => {
+    const fetchOutfit = async () => {
+      if (weatherData && !weatherError) {
+        try {
+          const result = await getSuggestedOutfit(weatherData);
+          console.log(result);
+        } catch (error) {
+          console.error("Error fetching suggested outfit:", error);
+        }
+      }
+    };
+
+    fetchOutfit();
+  }, [weatherData]);
+
 
   return (
     <div className="flex flex-col gap-4">
