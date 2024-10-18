@@ -99,14 +99,7 @@ function Main() {
 
   return (
     <div className="flex flex-col items-center p-4 gap-4">
-      <WeatherWidget weatherData={weatherData} error={error} />
-      <button
-        onClick={toggleLocation}
-        className="text-white bg-black p-1 rounded text-xs">
-        <span className="material-symbols-rounded text-xs">
-          autorenew
-        </span>
-      </button>
+      <WeatherWidget weatherData={weatherData} error={error} toggleLocation={toggleLocation} />
       <SuggestedOutfit weatherData={weatherData} error={error} />
     </div >
   );
