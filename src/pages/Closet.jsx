@@ -30,9 +30,6 @@ function Closet() {
     return () => unsubscribe();
   }, []);
 
-  // TODO: Fetch all clothes data for this person
-  // Display clothes filted by the category
-
   const filteredClothes =
     selectedCategory === "All"
       ? clothes
