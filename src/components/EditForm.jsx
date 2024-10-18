@@ -185,8 +185,8 @@ const EditForm = ({
                     </div>
                   </div>
 
-                  {showWarmthLevel && (
-                    <div className="sm:col-span-4">
+                  {showWarmthLevel && selectedCategory !== "Rain Jacket" && (
+                    <div className="sm:col-span-4 mb-4">
                       <div className="flex items-center gap-1 relative">
                         <label
                           htmlFor="warmthLevel"
@@ -239,7 +239,7 @@ const EditForm = ({
                     </div>
                   )}
 
-                  <div className="sm:col-span-4 mt-4">
+                  <div className="sm:col-span-4">
                     <div className="flex items-center gap-1 relative">
                       <label
                         htmlFor="preference"
