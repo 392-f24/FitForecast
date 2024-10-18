@@ -11,7 +11,7 @@ import { getDownloadURL } from "firebase/storage";
 import { useState, useEffect } from "react";
 import WarmthLevelInfo from "./WarmthLevelInfo";
 import { set } from "firebase/database";
-import { auth } from '../utilities/firebase';
+import { auth } from "../utilities/firebase";
 
 const EditForm = ({
   showModal,
@@ -33,7 +33,7 @@ const EditForm = ({
   useEffect(() => {
     setSelectedCategory(categories[0]);
   }, [categories]);
-  
+
   const currentUser = auth.currentUser;
   const [showWarmthInfo, setShowWarmthInfo] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(categories[0]);
@@ -78,7 +78,7 @@ const EditForm = ({
     const ClothingData = {
       category: formObject.category,
       parentCategory: categoriesDict[formObject.category],
-      warmthLevel: formObject.warmthLevel,
+      warmthLevel: formObject.warmthLevel || 3,
       color: formObject.color,
       preference: formObject.preference,
       imageURL,
@@ -89,7 +89,7 @@ const EditForm = ({
       await writeData(currentUser.uid, clothingId, ClothingData);
       console.log(currentUser.uid);
     } else {
-      console.error("No authenticated user")
+      console.error("No authenticated user");
     }
 
     setShowModal(false);

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import AddClothesButton from "../components/AddClothesButton";
 import EditForm from "../components/EditForm";
 import { getClothesData, getCategories } from "../utilities/database";
-import { auth } from '../utilities/firebase';
+import { auth } from "../utilities/firebase";
 
 function Closet() {
   const [showModal, setShowModal] = useState(false);
@@ -22,9 +22,9 @@ function Closet() {
       }
     });
 
-  const unsubscribe = getClothesData(currentUser.uid, (clothesData) => {
-    setClothes(clothesData);
-  });
+    const unsubscribe = getClothesData(currentUser.uid, (clothesData) => {
+      setClothes(clothesData);
+    });
 
     // Clean up the listener when the component unmounts
     return () => unsubscribe();
@@ -47,7 +47,6 @@ function Closet() {
         categoriesDict={categoriesDict}
         editing={editingClothes}
       />
-
       {/* Category icons */}
       <div className="flex space-x-4 overflow-x-auto mb-4">
         {["All", ...categories].map((category, index) => (
@@ -69,28 +68,42 @@ function Closet() {
           </div>
         ))}
       </div>
-
-      {/* Scrollable container for clothing grid */}
-      <div className="h-[calc(100vh-150px)] overflow-y-auto">
-        {/* Clothing grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-          {/* <p>... Need to fetch clothes data from database</p> */}
-          {filteredClothes.map((item, index) => (
-            <div
-              key={index}
-              className="flex items-center justify-center bg-gray-100 p-4 rounded-md"
-            >
-              {/* Use SVG or image for each clothing item */}
-              <img
-                src={item.imageURL}
-                alt={`Clothing item ${index + 1}`}
-                className="w-full h-auto"
-              />
-            </div>
-          ))}
+      {filteredClothes.length > 0 ? (
+        // Scrollable container for clothing grid
+        <div className="h-[calc(100vh-150px)] overflow-y-auto">
+          {/* Clothing grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            {/* <p>... Need to fetch clothes data from database</p> */}
+            {filteredClothes.map((item, index) => (
+              <div
+                key={index}
+                className="flex items-center justify-center bg-gray-100 p-4 rounded-md"
+              >
+                {/* Use SVG or image for each clothing item */}
+                <img
+                  src={item.imageURL}
+                  alt={`Clothing item ${index + 1}`}
+                  className="w-full h-auto"
+                />
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-
+      ) : (
+        <>
+          {selectedCategory !== "All" ? (
+            <p>
+              Add your first {selectedCategory.toLowerCase()}! You haven't added
+              any to your closet yet.
+            </p>
+          ) : (
+            <p>
+              Add your first clothing item! You haven't added any to your closet
+              yet.
+            </p>
+          )}
+        </>
+      )}
       <AddClothesButton
         onClick={() => {
           setEditingClothes(false);

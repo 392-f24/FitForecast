@@ -26,7 +26,9 @@ const Header = () => {
           </ul>
         </nav>
 
-        <p className="font-semibold">FitForecast</p>
+        <Link to="/" className="text-black font-semibold hover:text-gray-900">
+          FitForecast
+        </Link>
       </div>
     </header>
   );

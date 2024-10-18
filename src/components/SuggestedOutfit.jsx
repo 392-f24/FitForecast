@@ -3,6 +3,7 @@ import ClothesCard from "./ClothesCard";
 import { getSuggestedOutfit } from "../utilities/functions";
 import { useEffect } from "react";
 import { auth } from "../utilities/firebase";
+import { Link } from "react-router-dom";
 
 const SuggestedOutfit = ({ weatherData, weatherError }) => {
   const currentUser = auth.currentUser;
@@ -33,7 +34,7 @@ const SuggestedOutfit = ({ weatherData, weatherError }) => {
 
   useEffect(() => {
     fetchOutfit().then((result) => {
-      if (result) {
+      if (result && result.data) {
         setOutfit(result.data);
         setIsLoading(false);
       }
@@ -42,7 +43,7 @@ const SuggestedOutfit = ({ weatherData, weatherError }) => {
 
   const suggestNewOutfit = () => {
     fetchOutfit().then((result) => {
-      if (result) {
+      if (result && result.data) {
         setOutfit(result.data);
         setIsLoading(false);
       }
@@ -51,6 +52,25 @@ const SuggestedOutfit = ({ weatherData, weatherError }) => {
 
   if (isLoading) {
     return <p>Loading outfit...</p>;
+  }
+
+  if (
+    outfit.bottom === "" &&
+    outfit.top === "" &&
+    outfit.footwear === "" &&
+    outfit.outerwear === ""
+  ) {
+    return (
+      <div className="flex flex-col gap-4">
+        <p>Add more clothes to get an outfit suggestion!</p>
+        <Link
+          to="/closet"
+          className="bg-neutral-700 text-white py-4 rounded-lg font-semibold w-24 items-center mx-auto"
+        >
+          Closet
+        </Link>
+      </div>
+    );
   }
 
   return (
