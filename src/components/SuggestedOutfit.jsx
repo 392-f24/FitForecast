@@ -14,6 +14,8 @@ import WhiteSweater from "../assets/whitesweater.png";
 import BlackShirt from "../assets/blackShirt.png";
 import { getSuggestedOutfit } from "../utilities/functions";
 import { useEffect } from "react";
+import { auth } from "../utilities/firebase";
+import { getOutfitTest } from "../utilities/testingFunction";
 
 // Categorized clothing items
 const pants = [
@@ -45,6 +47,8 @@ const getRandomItem = (category) => {
 };
 
 const SuggestedOutfit = ({ weatherData, weatherError}) => {
+  const currentUser = auth.currentUser;
+  const uid = currentUser.uid;
   //
   // REMOVE AFTER CLOUD FUNCTION IS READY
   // 
@@ -59,6 +63,7 @@ const SuggestedOutfit = ({ weatherData, weatherError}) => {
 
   const suggestNewOutfit = () => {
     setOutfit(generateOutfit());
+    // console.log(getOutfitTest(weatherData, "admin"));
   };
   //
   //
@@ -68,7 +73,7 @@ const SuggestedOutfit = ({ weatherData, weatherError}) => {
     const fetchOutfit = async () => {
       if (weatherData && !weatherError) {
         try {
-          const result = await getSuggestedOutfit(weatherData);
+          const result = await getSuggestedOutfit(weatherData, uid);
           console.log(result);
         } catch (error) {
           console.error("Error fetching suggested outfit:", error);

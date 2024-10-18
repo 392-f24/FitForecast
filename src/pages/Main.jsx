@@ -57,8 +57,6 @@ function Main() {
 
         const data = await response.json();
 
-        console.log(data);
-
         const currentWeather = {
           location: data.name,
           current_temperature: kelvinToFahrenheit(data.main.temp),
@@ -69,7 +67,6 @@ function Main() {
           weather_icon: weatherIconMapping[data.weather[0].icon],
         };
 
-        console.log(currentWeather);
         setWeatherData(currentWeather);
       } catch (err) {
         setError(err.message);
@@ -84,7 +81,6 @@ function Main() {
           weather_icon: weatherIconMapping["03d"],
         };
 
-        console.log(dummyWeatherData);
         setWeatherData(dummyWeatherData);
       }
     };
