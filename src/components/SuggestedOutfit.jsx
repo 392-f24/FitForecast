@@ -1,54 +1,14 @@
 import React, { useState } from "react";
 import ClothesCard from "./ClothesCard";
-
-// Import all clothing items
-import Jeans from "../assets/jeans.png";
-import BeigePants from "../assets/beigePants.png";
-import GreenPants from "../assets/greenPants.png";
-import YellowPants from "../assets/yellowPants.png";
-import Shoes from "../assets/shoes.png";
-import On from "../assets/on.png";
-import LeatherJacket from "../assets/leatherjacket.png";
-import WhiteShirt from "../assets/whiteshirt.png";
-import WhiteSweater from "../assets/whitesweater.png";
-import BlackShirt from "../assets/blackShirt.png";
 import { getSuggestedOutfit } from "../utilities/functions";
 import { useEffect } from "react";
 import { auth } from "../utilities/firebase";
-import { getOutfitTest } from "../utilities/testingFunction";
 
-// Categorized clothing items
-const pants = [
-  { name: "Light Blue Jeans", image: Jeans },
-  { name: "Beige Pants", image: BeigePants },
-  { name: "Green Pants", image: GreenPants },
-  { name: "Yellow Pants", image: YellowPants },
-];
-
-const shoes = [
-  { name: "New Balance Sneakers", image: Shoes },
-  { name: "On Shoes", image: On },
-];
-
-const shirts = [
-  { name: "White Shirt", image: WhiteShirt },
-  { name: "Black Shirt", image: BlackShirt },
-];
-
-const jackets = [
-  { name: "Leather Jacket", image: LeatherJacket },
-  { name: "White Sweater", image: WhiteSweater },
-];
-
-// Helper function to select a random item from each category
-const getRandomItem = (category) => {
-  const randomIndex = Math.floor(Math.random() * category.length);
-  return category[randomIndex];
-};
-
-const SuggestedOutfit = ({ weatherData, weatherError}) => {
+const SuggestedOutfit = ({ weatherData, weatherError }) => {
   const currentUser = auth.currentUser;
   const uid = currentUser.uid;
+
+  const [isLoading, setIsLoading] = useState(true);
 
   const [outfit, setOutfit] = useState({
     bottom: "",
@@ -58,26 +18,40 @@ const SuggestedOutfit = ({ weatherData, weatherError}) => {
   });
 
   const fetchOutfit = async () => {
+    setIsLoading(true);
     if (weatherData && !weatherError) {
       try {
         const result = await getSuggestedOutfit(weatherData, uid);
+        setIsLoading(false);
         return result;
-        
       } catch (error) {
         console.error("Error fetching suggested outfit:", error);
+        setIsLoading(false);
       }
     }
   };
 
   useEffect(() => {
-    fetchOutfit()
-      .then((result) => {
+    fetchOutfit().then((result) => {
       if (result) {
         setOutfit(result.data);
+        setIsLoading(false);
       }
-    })
+    });
   }, [weatherData]);
 
+  const suggestNewOutfit = () => {
+    fetchOutfit().then((result) => {
+      if (result) {
+        setOutfit(result.data);
+        setIsLoading(false);
+      }
+    });
+  };
+
+  if (isLoading) {
+    return <p>Loading outfit...</p>;
+  }
 
   return (
     <div className="flex flex-col gap-4">
@@ -85,22 +59,22 @@ const SuggestedOutfit = ({ weatherData, weatherError}) => {
 
       <div className="grid grid-cols-2 gap-4">
         <div className="w-full aspect-square">
-          <ClothesCard clothes={outfit.bottom} />
+          <ClothesCard url={outfit.bottom} />
         </div>
         <div className="w-full aspect-square">
-          <ClothesCard clothes={outfit.top} />
+          <ClothesCard url={outfit.top} />
         </div>
         <div className="w-full aspect-square">
-          <ClothesCard clothes={outfit.footwear} />
+          <ClothesCard url={outfit.footwear} />
         </div>
         <div className="w-full aspect-square">
-          <ClothesCard clothes={outfit.outerwear} />
+          <ClothesCard url={outfit.outerwear} />
         </div>
       </div>
 
       <div className="pt-4">
         <button
-          onClick={fetchOutfit}
+          onClick={suggestNewOutfit}
           className="inline-flex px-4 py-3 justify-center items-center gap-3 rounded-xl bg-neutral-800 w-fit text-white"
         >
           <span className="material-symbols-rounded">autorenew</span>
