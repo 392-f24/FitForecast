@@ -7,8 +7,12 @@ const WarmthLevelInfo = ({ isVisible, category }) => {
     >
       <div>
         <p className="font-bold">About Warmth Level</p>
-        <p>1: the lightest {category} you own.</p>
-        <p>5: the heaviest or warmest {category} you own.</p>
+        <p>
+          <strong>1</strong>: the lightest {category} you own.
+        </p>
+        <p>
+          <strong>5</strong>: the heaviest or warmest {category} you own.
+        </p>
       </div>
 
       <div className="flex mt-2 gap-8">

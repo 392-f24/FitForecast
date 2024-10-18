@@ -10,6 +10,7 @@ import { writeData } from "../utilities/database";
 import { getDownloadURL } from "firebase/storage";
 import { useState, useEffect } from "react";
 import WarmthLevelInfo from "./WarmthLevelInfo";
+import PreferenceInfo from "./PreferenceInfo";
 import { set } from "firebase/database";
 import { auth } from "../utilities/firebase";
 
@@ -36,6 +37,7 @@ const EditForm = ({
 
   const currentUser = auth.currentUser;
   const [showWarmthInfo, setShowWarmthInfo] = useState(false);
+  const [showPreferenceInfo, setShowreferenceInfo] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(categories[0]);
   const [showWarmthLevel, setShowWarmthLevel] = useState(true);
   const [image, setImage] = useState(null);
@@ -43,6 +45,10 @@ const EditForm = ({
 
   const toggleWarmthInfo = () => {
     setShowWarmthInfo(!showWarmthInfo);
+  };
+
+  const togglePreferenceInfo = () => {
+    setShowreferenceInfo(!showPreferenceInfo);
   };
 
   const handleCategoryChange = (value) => {
@@ -234,12 +240,25 @@ const EditForm = ({
                   )}
 
                   <div className="sm:col-span-4 mt-4">
-                    <label
-                      htmlFor="preference"
-                      className="block text-sm font-medium leading-6 text-gray-900 text-left"
-                    >
-                      Preference
-                    </label>
+                    <div className="flex items-center gap-1 relative">
+                      <label
+                        htmlFor="preference"
+                        className="block text-sm font-medium leading-6 text-gray-900 text-left"
+                      >
+                        Preference
+                      </label>
+                      {/* info button */}
+                      <button
+                        className="flex items-center justify-center bg-transparent m-0 p-0 outline-none active:outline-none"
+                        onClick={togglePreferenceInfo}
+                        type="button"
+                      >
+                        <span className="material-symbols-rounded text-sm">
+                          info
+                        </span>
+                      </button>
+                      <PreferenceInfo isVisible={showPreferenceInfo} />
+                    </div>
                     <div className="mt-1 relative mb-2">
                       <input
                         id="preference"
