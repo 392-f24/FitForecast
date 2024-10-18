@@ -45,8 +45,8 @@ function Main() {
   useEffect(() => {
     const fetchWeatherData = async () => {
       try {
-        const lat = isEvanston ? 42.0451 : 25.7617;
-        const lon = isEvanston ? -87.6877 : -80.1918;
+        const lat = isEvanston ? 42.0451 : 61.217381;
+        const lon = isEvanston ? -87.6877 : -149.863129;
         const apiKey = import.meta.env.VITE_OPENWEATHER_API_KEY;
         const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`;
 
@@ -88,16 +88,19 @@ function Main() {
     fetchWeatherData();
   }, [isEvanston]);
 
-
   const toggleLocation = () => {
     setIsEvanston(!isEvanston);
   };
 
   return (
     <div className="flex flex-col items-center p-4 gap-4">
-      <WeatherWidget weatherData={weatherData} error={error} toggleLocation={toggleLocation} />
+      <WeatherWidget
+        weatherData={weatherData}
+        error={error}
+        toggleLocation={toggleLocation}
+      />
       <SuggestedOutfit weatherData={weatherData} error={error} />
-    </div >
+    </div>
   );
-};
+}
 export default Main;
