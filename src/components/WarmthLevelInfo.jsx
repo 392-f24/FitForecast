@@ -25,57 +25,57 @@ const WarmthLevelInfo = ({ isVisible, category }) => {
       return {
         ex1: "A lightweight dress shirt. E.g. a linen or cotton shirt.",
         ex5: "A thick, flannel shirt meant for layering in colder weather. E.g. a plaid flannel shirt.",
-        img1: "",
-        img5: "",
+        img1: "https://shopwyeth.com/cdn/shop/files/Woven_Linen_Mylo_Shirt_White_1600x.png?v=1717198008",
+        img5: "https://cdn11.bigcommerce.com/s-3vdgh6wtox/images/stencil/original/products/433/3553/52470-69C2-NLmin__34899.1724170511.png?c=3",
       };
     } else if (category === "long sleeve") {
       return {
         ex1: "A thin, long-sleeved cotton t-shirt. E.g. a basic long-sleeve tee.",
         ex5: "A thick, thermal or fleece-lined long-sleeve shirt. E.g. a thermal base layer shirt.",
-        img1: "",
-        img5: "",
+        img1: "https://www.vermontcountrystore.com/ccstore/v1/images/?source=/file/v379610169509345411/products/84942.wht.png&height=300&width=300",
+        img5: "https://cdn11.bigcommerce.com/s-vhimnvf2fd/images/stencil/2000x2000/products/591/2433/400CL-Mens-Thermal-Crewneck-Shirt---Charcoal__24996__43109.1721749249.png?c=1",
       };
     } else if (category === "dress") {
       return {
         ex1: "A light summer dress made from breathable fabric. E.g. a cotton or linen dress.",
         ex5: "A thick sweater dress or wool dress for cold weather. E.g. a cable-knit sweater dress.",
-        img1: "",
-        img5: "",
+        img1: "https://webcdn.protest.eu/resize?type=auto&stripmeta=true&url=https%3A%2F%2Fpim.protest.eu%2FProductMedia%2F2024-01%2FGIRLS%2FDRES-SKIRT%2F2920443%2F2920443_471_front.png&quality=85&width=400",
+        img5: "https://hirshleifers.com/cdn/shop/files/b2060ee306cd20a866d8dc043d349482.png?v=1724785203&width=640",
       };
     } else if (category === "shorts") {
       return {
         ex1: "Thin, breathable shorts for hot weather. E.g. athletic or linen shorts.",
         ex5: "Thick fleece-lined or insulated shorts for colder temperatures. E.g. winter fleece shorts.",
-        img1: "",
-        img5: "",
+        img1: "https://raskolapparel.com/cdn/shop/products/raskolmeshshortsblack1_2400x.png?v=1637124532",
+        img5: "https://shop.mancity.com/dw/image/v2/BDWJ_PRD/on/demandware.static/-/Sites-master-catalog-MAN/default/dw385379e8/images/large/701221098003_pp_01_mcfc.png?sw=1600&sh=1600&sm=fit",
       };
     } else if (category === "skirt") {
       return {
         ex1: "A lightweight, flowy skirt made from cotton or chiffon. E.g. a summer midi skirt.",
         ex5: "A heavy, woolen skirt designed for cold weather. E.g. a wool pencil skirt.",
-        img1: "",
-        img5: "",
+        img1: "https://www.acacia.co/cdn/shop/files/PETITEROSE_repeat_blue_min_dfdfbc1a-a33a-46e9-af41-af6b9011e3c1.png?v=1683672746&width=1121",
+        img5: "https://www.luistrenker.com/media/c2/fd/f8/1721218637/K43967-8200-1.png?ts=1721218637",
       };
     } else if (category === "sweater") {
       return {
         ex1: "A lightweight sweater made from cotton or a thin knit. E.g. a light cotton sweater.",
         ex5: "A thick wool or cashmere sweater for colder weather. E.g. a chunky wool turtleneck sweater.",
-        img1: "",
-        img5: "",
+        img1: "https://www.aggielandoutfitters.com/cdn/shop/files/Maroon_V-Neck_Thin_Sweater_grande.png?v=1725488093",
+        img5: "https://i.ebayimg.com/images/g/oVcAAOSwDsVhyADp/s-l400.png",
       };
     } else if (category === "hoodie") {
       return {
         ex1: "A thin, lightweight hoodie for casual wear. E.g. a basic cotton hoodie.",
         ex5: "A thick, fleece-lined hoodie meant for warmth. E.g. a sherpa-lined hoodie.",
-        img1: "",
-        img5: "",
+        img1: "https://madeblanks.com/cdn/shop/files/CROSSCOUNTRYZIPHOODIE-PFDFRONT.png?v=1691540493&width=1445",
+        img5: "https://www.flagandanthem.com/cdn/shop/files/COREKT1329-MILTON-LS-SOFT-BRUSHED-THERMAL-1-4-ZIP-HOODIE-CHARCOAL_006.png?v=1727719244&width=1080",
       };
     } else if (category === "coat") {
       return {
         ex1: "A lightweight coat for mild weather. E.g. an unlined trench coat.",
         ex5: "A thick, down-filled parka or heavy wool coat for extreme cold. E.g. a puffer coat or winter parka.",
-        img1: "",
-        img5: "",
+        img1: "https://www.meshki.us/cdn/shop/files/B892023.09.27MESHKI_16792.png?v=1725293767",
+        img5: "https://images.canadagoose.com/image/upload/w_480,c_scale,f_auto,q_auto/v1635731195/product-image/3035L_61_p.png",
       };
     }
   };
