@@ -61,9 +61,8 @@ const SuggestedOutfit = ({ weatherData, weatherError}) => {
     if (weatherData && !weatherError) {
       try {
         const result = await getSuggestedOutfit(weatherData, uid);
-        if (result.data === 'No clothes found') return;
-        setOutfit(result);
-        console.log(result);
+        return result;
+        
       } catch (error) {
         console.error("Error fetching suggested outfit:", error);
       }
@@ -71,7 +70,12 @@ const SuggestedOutfit = ({ weatherData, weatherError}) => {
   };
 
   useEffect(() => {
-    fetchOutfit();
+    fetchOutfit()
+      .then((result) => {
+      if (result) {
+        setOutfit(result.data);
+      }
+    })
   }, [weatherData]);
 
 
