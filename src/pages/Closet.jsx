@@ -59,7 +59,7 @@ function Closet() {
               }`}
             >
               <img
-                src={`src/assets/icons/${category}.svg`}
+                src={`/assets/icons/${category}.svg`}
                 alt={category}
                 className="w-10 h-10 object-contain"
               />
