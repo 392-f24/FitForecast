@@ -5,7 +5,7 @@ const PreferenceInfo = ({ isVisible }) => {
         isVisible ? "block" : "hidden"
       } absolute bg-white border-black border-[1px] shadow-sm text-xs rounded p-3 z-10 top-6 w-full flex flex-col text-left`}
     >
-      <div>
+      <div className="flex flex-col gap-2">
         <p className="font-bold">About Preference</p>
         <p>
           <strong>1</strong>: this is not your favorite item of clothing so we
