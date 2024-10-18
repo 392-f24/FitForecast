@@ -34,16 +34,16 @@ import { IoLocationOutline } from "react-icons/io5";
 //   "50n": TiWeatherCloudy,
 // };
 
-const WeatherWidget = ({weatherData, weatherError, toggleLocation}) => {
+const WeatherWidget = ({weatherData, weatherError}) => {
   if (!weatherData) {
     return <p>Loading weather data...</p>;
   }
 
   const WeatherIcon = weatherData.weather_icon;
 
-  // const toggleLocation = () => {
-  //   setIsEvanston(!isEvanston);
-  // };
+  const toggleLocation = () => {
+    setIsEvanston(!isEvanston);
+  };
 
   return (
     <div className="flex flex-col w-full">
@@ -58,14 +58,14 @@ const WeatherWidget = ({weatherData, weatherError, toggleLocation}) => {
             <div className="flex items-center">
               <IoLocationOutline className="mr-1 text-sm" />
               <p className="text-xs sm:text-sm">{weatherData.location}</p>
-              <button
+              {/* <button
               onClick={toggleLocation}
               className="text-white bg-transparent p-1 rounded text-xs"
             >
               <span className="material-symbols-rounded text-xs">
                 autorenew
               </span>
-            </button>
+            </button> */}
             </div>
 
             <p className="text-xs sm:text-sm">
