@@ -49,38 +49,28 @@ const getRandomItem = (category) => {
 const SuggestedOutfit = ({ weatherData, weatherError}) => {
   const currentUser = auth.currentUser;
   const uid = currentUser.uid;
-  //
-  // REMOVE AFTER CLOUD FUNCTION IS READY
-  // 
-  const generateOutfit = () => ({
-    pants: getRandomItem(pants),
-    shoes: getRandomItem(shoes),
-    top: getRandomItem(shirts),
-    accessory: getRandomItem(jackets),
+
+  const [outfit, setOutfit] = useState({
+    bottom: "",
+    footwear: "",
+    top: "",
+    outerwear: "",
   });
 
-  const [outfit, setOutfit] = useState(generateOutfit());
-
-  const suggestNewOutfit = () => {
-    setOutfit(generateOutfit());
-    // console.log(getOutfitTest(weatherData, "admin"));
-  };
-  //
-  //
-  //
-  // temporary dummy weather data
-  useEffect(() => {
-    const fetchOutfit = async () => {
-      if (weatherData && !weatherError) {
-        try {
-          const result = await getSuggestedOutfit(weatherData, uid);
-          console.log(result);
-        } catch (error) {
-          console.error("Error fetching suggested outfit:", error);
-        }
+  const fetchOutfit = async () => {
+    if (weatherData && !weatherError) {
+      try {
+        const result = await getSuggestedOutfit(weatherData, uid);
+        if (result.data === 'No clothes found') return;
+        setOutfit(result);
+        console.log(result);
+      } catch (error) {
+        console.error("Error fetching suggested outfit:", error);
       }
-    };
+    }
+  };
 
+  useEffect(() => {
     fetchOutfit();
   }, [weatherData]);
 
@@ -91,22 +81,22 @@ const SuggestedOutfit = ({ weatherData, weatherError}) => {
 
       <div className="grid grid-cols-2 gap-4">
         <div className="w-full aspect-square">
-          <ClothesCard clothes={outfit.pants} />
+          <ClothesCard clothes={outfit.bottom} />
         </div>
         <div className="w-full aspect-square">
           <ClothesCard clothes={outfit.top} />
         </div>
         <div className="w-full aspect-square">
-          <ClothesCard clothes={outfit.shoes} />
+          <ClothesCard clothes={outfit.footwear} />
         </div>
         <div className="w-full aspect-square">
-          <ClothesCard clothes={outfit.accessory} />
+          <ClothesCard clothes={outfit.outerwear} />
         </div>
       </div>
 
       <div className="pt-4">
         <button
-          onClick={suggestNewOutfit}
+          onClick={fetchOutfit}
           className="inline-flex px-4 py-3 justify-center items-center gap-3 rounded-xl bg-neutral-800 w-fit text-white"
         >
           <span className="material-symbols-rounded">autorenew</span>
