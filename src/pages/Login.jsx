@@ -1,10 +1,11 @@
 import React from "react";
 import { signInWithGoogle } from "../utilities/auth"; // Import the sign-in function from auth.js
 import { useNavigate } from "react-router-dom";
+import { copyUserData } from "../utilities/database";
 
 function Login() {
   const navigate = useNavigate();
-
+  // copyUserData(uid1, uid2);
   const handleLogin = async () => {
     const user = await signInWithGoogle();
     if (user) {

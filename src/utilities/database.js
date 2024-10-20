@@ -65,3 +65,20 @@ export const deleteData = (uid, clothingId) => {
     console.log('data deleted');
 }
 
+export const copyUserData = (uid1, uid2) => {
+    const dbRef = ref(database, `Users/${uid1}/closet`);
+    get(dbRef)
+        .then((snapshot) => {
+            if (snapshot.exists()) {
+                const data = snapshot.val();
+                console.log(data);
+                set(ref(database, `Users/${uid2}/closet`), data);
+                console.log('data copied');
+            } else {
+                console.log('No data found');
+            }
+        })
+        .catch((error) => {
+            console.error('Error fetching data:', error);
+        });
+}
