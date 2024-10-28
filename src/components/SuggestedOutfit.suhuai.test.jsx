@@ -1,6 +1,6 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
-import SuggestedOutfit from '../components/SuggestedOutfit'; // Adjust the import path as necessary
+import SuggestedOutfit from '../components/SuggestedOutfit';
 import { auth } from '../utilities/firebase';
 
 // Mocking Firebase auth
