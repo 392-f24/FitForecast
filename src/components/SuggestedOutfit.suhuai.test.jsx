@@ -1,7 +1,7 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import SuggestedOutfit from '../components/SuggestedOutfit';
-import { auth } from '../utilities/firebase';
+import { MemoryRouter } from 'react-router-dom';
 
 // Mocking Firebase auth
 vi.mock('../utilities/firebase', () => ({
@@ -15,20 +15,24 @@ vi.mock('../utilities/functions', () => ({
   getSuggestedOutfit: vi.fn(() => Promise.resolve({
     data: {
       bottom: '',
-      top: 'topImageURL',
+      top: 'url',
       footwear: '',
       outerwear: '',
     }
   }))
 }));
 
-describe('SuggestedOutfit Component', () => {
+describe('SuggestedOutfit', () => {
   it('should display suggested clothes when the SuggestNewOutfit button is clicked and at least the top item is available', async () => {
     // Mock weather data and error as necessary
     const weatherData = { temperature: 70 }; // Example weather data
     const weatherError = null; // No weather error
 
-    render(<SuggestedOutfit weatherData={weatherData} weatherError={weatherError} />);
+    render(
+      <MemoryRouter>
+          <SuggestedOutfit weatherData={weatherData} weatherError={weatherError} />
+      </MemoryRouter>
+  );
 
     // Wait for the initial outfit suggestion to load
     await waitFor(() => {

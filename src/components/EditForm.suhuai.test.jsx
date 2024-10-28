@@ -1,7 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { vi, describe, it, expect } from 'vitest';
 import Closet from '../pages/Closet';
-import { auth } from '../utilities/firebase';
 
 // Mocking the Firebase auth
 vi.mock('../utilities/firebase', () => ({
@@ -20,7 +19,16 @@ vi.mock('../utilities/database', () => ({
   getCategories: vi.fn(() => Promise.resolve({
     categoriesOrdered: ['shirt'],
     categoriesDict: {}
-  }))
+  })),
+  writeData: vi.fn(() => Promise.resolve({})),
+}));
+
+vi.mock('../utilities/storage', () => ({
+  uploadFile: vi.fn(() => Promise.resolve({})),
+}));
+
+vi.mock('firebase/storage', () => ({
+  getDownloadURL: vi.fn(() => Promise.resolve('imageURL')),
 }));
 
 describe('EditForm', () => {
