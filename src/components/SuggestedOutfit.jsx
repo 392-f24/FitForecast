@@ -79,16 +79,16 @@ const SuggestedOutfit = ({ weatherData, weatherError }) => {
 
       <div className="grid grid-cols-2 gap-4">
         <div className="w-full aspect-square">
-          <ClothesCard url={outfit.bottom} />
+          <ClothesCard url={outfit.bottom} name="bottom" />
         </div>
         <div className="w-full aspect-square">
-          <ClothesCard url={outfit.top} />
+          <ClothesCard url={outfit.top} name="top" />
         </div>
         <div className="w-full aspect-square">
-          <ClothesCard url={outfit.footwear} />
+          <ClothesCard url={outfit.footwear} name="footwear" />
         </div>
         <div className="w-full aspect-square">
-          <ClothesCard url={outfit.outerwear} />
+          <ClothesCard url={outfit.outerwear} name="outerwear" />
         </div>
       </div>
 
