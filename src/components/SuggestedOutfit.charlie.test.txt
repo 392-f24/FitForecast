@@ -1,0 +1,47 @@
+import { render, screen, waitFor } from "@testing-library/react";
+import SuggestedOutfit from "../components/SuggestedOutfit";
+import { describe, it, expect } from "vitest";
+import { getSuggestedOutfit } from "../utilities/functions";
+import { auth } from "../utilities/firebase";
+
+describe("SuggestedOutfit Component - Integration Test", () => {
+    it("should call getSuggestedOutfit and return the correct values", async () => {
+        // Make sure Firebase is configured correctly for tests
+        const currentUser = { uid: "admin" };
+        auth.currentUser = currentUser;
+
+        // Provide actual weather data for the test
+        const weatherData = {
+            location: "Evanston",
+            current_temperature: 33,
+            high_temperature: 36,
+            low_temperature: 30,
+            weather_condition: "clouds",
+            chance_of_rain: 12,
+            weather_icon: "",
+        };
+        const weatherError = false;
+
+        // Call getSuggestedOutfit directly
+        const outfit = await getSuggestedOutfit(weatherData, auth.currentUser.uid);
+        console.log(outfit);
+
+        // Validate the result from the actual function
+        expect(outfit).toBeDefined();
+        expect(outfit.data).toBeDefined();
+
+        // Only check if outerwear is a non-empty string
+        expect(outfit.data.outerwear).toBeDefined();
+        expect(outfit.data.outerwear).not.toBe("");
+        expect(typeof outfit.data.outerwear).toBe("string");
+
+        // Render the component and ensure it behaves as expected with the fetched data
+        render(<SuggestedOutfit weatherData={weatherData} weatherError={weatherError} />);
+
+        // Wait for the component to update with the outfit data
+        await waitFor(() => {
+            const outerwearCard = screen.getByRole("img", { name: "outerwear" });
+            expect(outerwearCard).toBeInTheDocument();
+        });
+    });
+});
