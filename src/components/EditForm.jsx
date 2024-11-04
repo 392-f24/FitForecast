@@ -21,7 +21,7 @@ const EditForm = ({
   categories,
   categoriesDict,
   editing,
-}) => {
+}) => { 
   defaultData = defaultData || {
     image: "",
     name: "",
