@@ -1,9 +1,14 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getFunctions } from "firebase/functions";
-import { getAuth } from "firebase/auth";
-import { getDatabase } from "firebase/database";
-import { getStorage } from "firebase/storage";
+import { getFunctions, connectFunctionsEmulator } from "firebase/functions";
+import {
+  getAuth,
+  connectAuthEmulator,
+  GoogleAuthProvider,
+  signInWithCredential,
+} from "firebase/auth";
+import { getDatabase, connectDatabaseEmulator } from "firebase/database";
+import { getStorage, connectStorageEmulator } from "firebase/storage";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -22,7 +27,24 @@ const firebaseConfig = {
 // Initialize Firebase
 const firebase = initializeApp(firebaseConfig);
 export const functions = getFunctions(firebase);
-export const auth = getAuth(initializeApp(firebaseConfig));
+export const auth = getAuth(firebase);
 export const database = getDatabase(firebase);
 export const storage = getStorage(firebase);
 export default firebase;
+
+if (!globalThis.EMULATION && import.meta.env.MODE === "development") {
+  connectAuthEmulator(auth, "http://127.0.0.1:9099");
+  connectDatabaseEmulator(database, "127.0.0.1", 9000);
+  connectFunctionsEmulator(functions, "127.0.0.1", 5001);
+  connectStorageEmulator(storage, "127.0.0.1", 9199);
+
+  signInWithCredential(
+    auth,
+    GoogleAuthProvider.credential(
+      '{"sub": "TpmD5Vudw1DB57mrvvabAMRn67Gs", "email": "tester@gmail.com", "displayName":"Test User", "email_verified": true}'
+    )
+  );
+
+  // set flag to avoid connecting twice, e.g., because of an editor hot-reload
+  globalThis.EMULATION = true;
+}
