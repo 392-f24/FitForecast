@@ -1,18 +1,24 @@
 import { describe, it, vi, beforeEach, afterEach } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import Closet from './Closet';
-import { getClothesData, getCategories } from '../utilities/database';
-import { auth } from '../utilities/firebase';
 
-vi.mock('../utilities/database');
-vi.mock('../utilities/firebase');
+// Mock the utilities
+vi.mock('../utilities/firebase', () => ({
+  auth: { currentUser: { uid: '12345' } },
+}));
+
+vi.mock('../utilities/database', () => ({
+  getCategories: vi.fn(),
+  getClothesData: vi.fn(),
+}));
+
+// Import mocked utilities
+import { getCategories, getClothesData } from '../utilities/database';
 
 const mockCategories = {
   categoriesOrdered: ['T-Shirts', 'Pants', 'Shoes'],
   categoriesDict: { 'T-Shirts': {}, Pants: {}, Shoes: {} },
 };
-
-const mockUser = { uid: '12345' };
 
 const mockClothesData = [
   { category: 'Pants', imageURL: 'pants1.png' },
@@ -20,10 +26,7 @@ const mockClothesData = [
 ];
 
 beforeEach(() => {
-  // Mock Firebase Authentication
-  auth.currentUser = mockUser;
-
-  // Mock database calls
+  // Set up mocks
   getCategories.mockResolvedValue(mockCategories);
   getClothesData.mockImplementation((uid, callback) => {
     callback(mockClothesData);
@@ -40,12 +43,12 @@ describe('Closet component', () => {
     // Render the Closet component
     render(<Closet />);
 
-    // Wait for the categories to load and ensure "T-Shirts" category is selectable
+    // Wait for categories to load
     await screen.findByText('T-Shirts');
 
     // Click the "T-Shirts" category button
     const tShirtButton = screen.getByRole('button', { name: /T-Shirts/i });
-    tShirtButton.click();
+    fireEvent.click(tShirtButton);
 
     // Verify the placeholder message
     const message = await screen.findByText(/add your first t-shirt/i);
